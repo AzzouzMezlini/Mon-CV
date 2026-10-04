@@ -7,15 +7,18 @@ on:
       - 'template.md'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
 
@@ -23,22 +26,22 @@ jobs:
       run: |
         import json
         
-        # Charger les données JSON
+        # 1. Charger les données JSON
         with open('cv-data.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
             
-        # Charger le template HTML/Markdown
+        # 2. Charger le template Markdown
         with open('template.md', 'r', encoding='utf-8') as f:
             template = f.read()
             
         coords = data['coordonnees']
         
-        # Remplacement des variables de base
+        # 3. Remplacement des variables textuelles globales
         template = template.replace('id="gh-name">Chargement...', f'id="gh-name">{coords["nom"]}')
         template = template.replace('id="gh-title">', f'id="gh-title">{data["statut"]}')
         template = template.replace('id="gh-profile">', f'id="gh-profile">{data["profil"]}')
         
-        # Génération dynamique des listes HTML
+        # 4. Bloc Coordonnées de contact
         contact_html = f"""
           <li>📍 {coords['adresse']}</li>
           <li>✉️ <a href="mailto:{coords['email']}">{coords['email']}</a></li>
@@ -48,9 +51,11 @@ jobs:
         """
         template = template.replace('<ul id="gh-contact"></ul>', f'<ul id="gh-contact">{contact_html}</ul>')
         
+        # 5. Bloc Compétences
         skills_html = "".join([f'<div class="cv-skill-group"><h4>{c["categorie"]}</h4><p>{", ".join(c["liste"])}</p></div>' for c in data['competences']])
         template = template.replace('<div id="gh-skills"></div>', f'<div id="gh-skills">{skills_html}</div>')
         
+        # 6. Bloc Expériences professionnelles
         exp_html = ""
         for exp in data['experiences']:
             bullets = "".join([f'<li>{m}</li>' for m in exp['missions']])
@@ -63,18 +68,18 @@ jobs:
             """
         template = template.replace('<div id="gh-experience"></div>', f'<div id="gh-experience">{exp_html}</div>')
         
+        # 7. Bloc Formations et Diplômes
         edu_html = "".join([f'<div class="cv-item"><div class="cv-item-header"><span class="cv-item-title">{e["diplome"]}</span><span class="cv-item-date">{e["annee"]}</span></div><div class="cv-item-sub">{e["institution"]}</div></div>' for e in data['formations']])
         template = template.replace('<div id="gh-education"></div>', f'<div id="gh-education">{edu_html}</div>')
         
-        # Sauvegarde du rendu final dans README.md
+        # 8. Écriture finale sécurisée dans le README.md
         with open('README.md', 'w', encoding='utf-8') as f:
-            f.read() # Nettoyage
             f.write(template)
       shell: python
 
     - name: Commit and Push changes
       run: |
-        git config --local user.email "github-actions[bot]@://github.com"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add README.md
         git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Update dynamic README.md"
