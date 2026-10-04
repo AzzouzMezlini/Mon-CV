@@ -16,25 +16,74 @@
   ],
   "experiences": [
     {
-      "poste": "Développeur SQL & Modélisation",
-      "entreprise": "Becton Dickinson (via CORIS)",
-      "periode": "09/2025 – 05/2026",
-      "featured": true,
-      "missions": [
-        "Architecture & Fiabilité : Applications structurées (injection de dépendances, principes DIP) garantissant la conformité et l'intégrité des données.",
-        "Performance : Optimisation des recherches en mémoire (Scripting.Dictionary en O(1)) et gestion centralisée des erreurs.",
-        "IHM & Paramétrage : Développement de UserForms découplés et centralisation via ConfigManager."
-      ]
+    "poste": "Développeur SQL & Modélisation",
+    "entreprise": "Becton Dickinson (via CORIS)",
+    "periode": "09/2025 – 05/2026",
+    "featured": true,
+    "missions": [
+    "Architecture & Fiabilité : Conception de modules applicatifs structurés (injection de dépendances, principes DIP) garantissant la conformité et l'intégrité des données métiers.",
+    "Performance & Intégrité : Optimisation des recherches en mémoire (Scripting.Dictionary en O(1)), validation dynamique à l'entrée et gestion centralisée des règles.",
+    "IHM & Paramétrage : Développement de UserForms découplés du modèle de données et centralisation de la configuration via un ConfigManager."
+    ]
     },
     {
-      "poste": "Développeur SQL & Migration",
-      "entreprise": "NEOTEEM",
-      "periode": "11/2022 – 08/2024",
-      "featured": false,
-      "missions": [
-        "Ingénierie de données : Rétro-conception de schémas complexes et optimisation de scripts SQL PostgreSQL versionnés sous Git.",
-        "Migration métier : Analyse du domaine gérance immobilière, correction des procédures d'insertion et débogage de flux batch."
-      ]
+    "poste": "Développeur SQL & Migration",
+    "entreprise": "NEOTEEM",
+    "periode": "11/2022 – 08/2024",
+    "featured": false,
+    "missions": [
+    "Ingénierie de données : Rétro-conception de schémas complexes et développement/optimisation de scripts SQL sous PostgreSQL versionnés sous Git.",
+    "Migration métier : Analyse du domaine gérance immobilière, correction des procédures d'insertion, débogage de flux batch et sécurisation des intégrations."
+    ]
+    },
+    {
+    "poste": "Formateur Informatique & BDD",
+    "entreprise": "Evogue",
+    "periode": "09/2021 – 12/2022",
+    "featured": false,
+    "missions": [
+    "Transmission & Expertise : Animation de modules de formation en programmation Java SE/EE, modélisation conceptuelle (Merise/UML) et administration de bases de données relationnelles."
+    ]
+    },
+    {
+    "poste": "Développeur Data & Automatisation ETL",
+    "entreprise": "MasterGrid",
+    "periode": "07/2020 – 07/2021",
+    "featured": false,
+    "missions": [
+    "Gestion des Stocks & Achats : Restructuration des tables de seuils (unpivot multi-colonnes vers multi-lignes min/max), tables d'équivalence et valorisation des stocks (FIFO/PIFO).",
+    "Migration ERP SAGE X3 : Extraction et transformation des affaires en cours pour alimentation de l'outil d'import massif en lien avec le Contrôle de Gestion.",
+    "Pipelines ETL : Automatisation du traitement des CSV bruts SAP BO via Power Query et VBA vers les formats cibles SAGE."
+    ]
+    },
+    {
+    "poste": "Référent Service Information (Alt. licence)",
+    "entreprise": "Haute-Savoie HABITAT",
+    "periode": "09/2018 – 09/2019",
+    "featured": false,
+    "missions": [
+    "Data Warehouse : Conception, modélisation en étoile et déploiement d'un entrepôt de données décisionnel sous MS SQL Server.",
+    "ETL & Reporting : Déploiement des flux d'intégration avec Pentaho ETL et création de tableaux de bord décisionnels automatisés sous SSRS."
+    ]
+    },
+    {
+    "poste": "Développeur Software Backend (Stage BTS)",
+    "entreprise": "ITY Consulting",
+    "periode": "05/2015 – 08/2015",
+    "featured": false,
+    "missions": [
+    "Projet GED activ'ITY : Conception backend en PHP / CakePHP sous Architecture Hexagonale et modélisation de la base de données relationnelle."
+    ]
+    },
+    {
+    "poste": "Support, Intégration & Outillage",
+    "entreprise": "SPIE Infoservice",
+    "periode": "2010 – 2018",
+    "featured": false,
+    "missions": [
+    "Relation & Analyse : Diagnostic des besoins métiers et assistance utilisateur sur sites clients (GEM, Conseil Régional, Grand Lyon Habitat, Delpharm, Feu Vert).",
+    "Outillage & Coordination : Développement d'applications d'automatisation en C# et PHP/SQL ; gestion de service IT, réseau et serveurs chez Delpharm."
+    ]
     }
   ],
   "projets": [
