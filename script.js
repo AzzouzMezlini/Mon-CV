@@ -40,7 +40,7 @@ function populateCV(data) {
     const expContainer = document.getElementById("experience-container");
     expContainer.innerHTML = data.experiences.map(exp => {
         // On génère d'abord les puces en concaténant des chaînes standard
-        const bullets = exp.missions.map(m => '<li>' + m + '<li>').join('');
+        const bullets = exp.missions.map(m => '<li>' + m + '</li>').join('');
 
         // On injecte ensuite la variable bullets proprement
         return `
