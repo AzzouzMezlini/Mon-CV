@@ -1,6 +1,6 @@
 # 📊 Architecture de CV Dynamique Pilotée par la Donnée
 
-[![GitHub Pages](https://shields.io🚀%20Live%20Demo-2f81f7?style=for-the-badge)](https://github.io)
+[![GitHub Pages](https://shields.io🚀%20Live%20Demo-2f81f7?style=for-the-badge)](https://azzouzmezlini.github.io/mon-cv/)
 
 Ce dépôt héberge mon CV de **Data Engineer / Développeur SQL**. Fidèle aux bonnes pratiques d'architecture logicielle, ce projet applique le principe de **séparation des responsabilités (SoC)** : les données métiers sont totalement isolées du code de rendu visuel.
 
@@ -49,5 +49,5 @@ Pour ajouter une expérience ou modifier une compétence :
 
 ## 🔗 Liens et Contact
 
-* **Démo en ligne :** [Consulter mon CV sur GitHub Pages](https://github.io)
-* **LinkedIn :** [://linkedin.com](https://www.://linkedin.com)
+* **Démo en ligne :** [Consulter mon CV sur GitHub Pages](https://azzouzmezlini.github.io/mon-cv/)
+* **LinkedIn :** [://linkedin.com](https://www.linkedin.com/in/azzouz-mezlini)
