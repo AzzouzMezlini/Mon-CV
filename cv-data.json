@@ -1,0 +1,43 @@
+{
+  "statut": "Data Engineer / Développeur SQL & Data",
+  "coordonnees": {
+    "nom": "Azzouz Mezlini",
+    "adresse": "38240 Meylan",
+    "email": "azzouz.mezlini@gmail.com",
+    "permis": "Permis B",
+    "linkedin": "://linkedin.com",
+    "github": "://github.com",
+    "kaggle": "://kaggle.com"
+  },
+  "profil": "Data Engineer et Développeur SQL expérimenté (10+ ans), spécialiste en SQL avancé, de la modélisation décisionnelle et de l'automatisation ETL. Solide double profil alliant expertise technique (dbt, Cube.dev, PostgreSQL, SQL Server, VBA POO) et fine compréhension des enjeux métiers (Achats, Gérance, Contrôle de gestion). Anglais courant.",
+  "competences": [
+    { "categorie": "Data Engineering & BI", "liste": ["dbt", "Cube.dev", "Pentaho ETL", "Data Warehouse", "Power Query", "SSRS"] },
+    { "categorie": "Bases de Données", "liste": ["PostgreSQL", "PL/SQL", "SQL Server", "Oracle", "Schéma en Étoile"] },
+    { "categorie": "Langages & Outillage", "liste": ["Python", "VBA POO", "Java", "Git", "C#", "PHP"] }
+  ],
+  "experiences": [
+    {
+      "poste": "Développeur SQL & Modélisation",
+      "entreprise": "Becton Dickinson (via CORIS)",
+      "periode": "09/2025 – 05/2026",
+      "missions": [
+        "Architecture & Fiabilité : Conception de modules applicatifs structurés (injection de dépendances, principes DIP) garantissant la conformité et l'intégrité des données métiers.",
+        "Performance & Intégrité : Optimisation des recherches en mémoire (Scripting.Dictionary en O(1)), validation dynamique à l'entrée et gestion centralisée des règles.",
+        "IHM & Paramétrage : Développement de UserForms découplés du modèle de données et centralisation de la configuration via un ConfigManager."
+      ]
+    },
+    {
+      "poste": "Développeur SQL & Migration",
+      "entreprise": "NEOTEEM",
+      "periode": "11/2022 – 08/2024",
+      "missions": [
+        "Ingénierie de données : Rétro-conception de schémas complexes et développement/optimisation de scripts SQL sous PostgreSQL versionnés sous Git.",
+        "Migration métier : Analyse du domaine gérance immobilière, correction des procédures d'insertion, débogage de flux batch et sécurisation des intégrations."
+      ]
+    }
+  ],
+  "formations": [
+    { "diplome": "Licence Pro Big Data (Alternance)", "institution": "IUT2 Grenoble", "annee": "2018 – 2019" },
+    { "diplome": "Développeur Full Stack Java", "institution": "M2i Grenoble", "annee": "2018" }
+  ]
+}
