@@ -38,18 +38,25 @@ function populateCV(data) {
 
     // 4. Section Expériences Professionnelles
     const expContainer = document.getElementById("experience-container");
-    expContainer.innerHTML = data.experiences.map(exp => `
-        <div class="job-card">
-            <div class="job-header">
-                <span class="job-title">${exp.poste}</span>
-                <span class="job-date">${exp.periode}</span>
+    expContainer.innerHTML = data.experiences.map(exp => {
+        // On génère d'abord les puces en concaténant des chaînes standard
+        const bullets = exp.missions.map(m => '<li>' + m + '<li>').join('');
+
+        // On injecte ensuite la variable bullets proprement
+        return `
+            <div class="job-card">
+                <div class="job-header">
+                    <span class="job-title">${exp.poste}</span>
+                    <span class="job-date">${exp.periode}</span>
+                </div>
+                <div class="job-company">${exp.entreprise}</div>
+                <ul class="job-missions">
+                    ${bullets}
+                </ul>
             </div>
-            <div class="job-company">${exp.entreprise}</div>
-            <ul class="job-missions">
-                ${exp.missions.map(m => `<li>${m}</li>`).join('')}
-            </ul>
-        </div>
-    `).join('');
+        `;
+    }).join('');
+
 
     // 5. Section Formations
     const eduContainer = document.getElementById("education-container");
