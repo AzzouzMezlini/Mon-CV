@@ -46,7 +46,7 @@ function populateCV(data) {
             </div>
             <div class="job-company">${exp.entreprise}</div>
             <ul class="job-missions">
-                ${exp.missions.map(m => `<li>\${m}</li>`).join('')}
+                ${exp.missions.map(m => `<li>${m}</li>`).join('')}
             </ul>
         </div>
     `).join('');
