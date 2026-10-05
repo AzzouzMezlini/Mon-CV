@@ -73,7 +73,9 @@
 "Modélisation & Performance : mise en cache via Scripting.Dictionary en O(1), optimisation de la mémoire.",
 "IHM & Paramétrage : interfaces UserForms découplées du modèle de données, loaders personnalisés et centralisation de la configuration via ConfigManager."
 ],
-"skills": []
+"skills": ["VBA POO",
+    "Architecture POO",
+    "Principes SOLID / DIP"]
 },
 {
 "poste": "Développeur SQL",
@@ -86,7 +88,7 @@
 "Extraction et analyse des données sources via rétro-conception de schémas complexes.",
 "Conception, correction et sécurisation des traitements d'insertion de données."
 ],
-"skills": []
+"skills": ["PostgreSQL"]
 },
 {
 "poste": "Formateur Informatique & BDD",
