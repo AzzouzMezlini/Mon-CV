@@ -1,56 +1,52 @@
-// Variable globale qui contiendra les données du JSON
+// Variable globale pour stocker les données du JSON
 let cvData = null;
 
 let activeFilterSkill = null;
 let hoveredSkill = null;
 let hoveredExperienceIdx = null;
 
-// Éléments du DOM
-const skillsContainer = document.getElementById('skillsSidebarContainer');
-const timelineContainer = document.getElementById('experienceTimeline');
-const projectsContainer = document.getElementById('projectsGrid');
-const filterBanner = document.getElementById('filterBanner');
-const filterSkillName = document.getElementById('filterSkillName');
-const resetFilterBtn = document.getElementById('resetFilterBtn');
-const searchInput = document.getElementById('searchInput');
-const themeToggle = document.getElementById('themeToggle');
+// Éléments du DOM (alignés avec index.html)
+const skillsContainer = document.getElementById('skills-container');
+const timelineContainer = document.getElementById('experience-container');
+const projectsContainer = document.getElementById('projects-container');
+const profileContainer = document.getElementById('profile-text');
+const eduContainer = document.getElementById('education-container');
 
 // 1. Chargement initial des données
 async function loadCVData() {
   try {
-    const response = await fetch('cv-data.json');
+    const response = await fetch('cv-data.json'); // Assure-toi que ton fichier s'appelle bien cv-data.json
     cvData = await response.json();
 
-    // Enrichissement automatique des tableaux skills s'ils sont vides dans le JSON
+    // Enrichissement automatique des compétences dans les cartes
     autoDetectSkills();
 
-    // Rendu
+    // Rendu complet du CV
+    renderHeader();
+    renderProfile();
     renderSkills();
     renderExperiences();
     renderProjects();
+    renderEducation();
   } catch (error) {
     console.error("Erreur lors du chargement des données CV :", error);
   }
 }
 
-// 2. Détection automatique des compétences citées dans les missions/projets
+// 2. Détection automatique des compétences
 function autoDetectSkills() {
-  // Extrait la liste à plat de tous les noms de compétences du JSON
   const allSkillsList = cvData.competences.flatMap(cat => cat.liste.map(s => s.nom));
 
-  // Auto-population pour les expériences
   cvData.experiences.forEach(exp => {
     if (!exp.skills || exp.skills.length === 0) {
       const fullText = (exp.poste + ' ' + exp.entreprise + ' ' + exp.missions.join(' ')).toLowerCase();
       exp.skills = allSkillsList.filter(skill => {
-        // Recherche insensible à la casse
-        const cleanSkill = skill.toLowerCase().split('(')[0].trim(); // Nettoie ex: "Méthode MERISE (MCD/MLD)" -> "méthode merise"
+        const cleanSkill = skill.toLowerCase().split('(')[0].trim();
         return fullText.includes(cleanSkill);
       });
     }
   });
 
-  // Auto-population pour les projets
   cvData.projets.forEach(proj => {
     if (!proj.skills || proj.skills.length === 0) {
       const fullText = (proj.titre + ' ' + proj.desc).toLowerCase();
@@ -62,107 +58,111 @@ function autoDetectSkills() {
   });
 }
 
-// 3. Rendu de la barre des Compétences
+// 3. En-tête et Profil
+function renderHeader() {
+  if (!cvData) return;
+  document.getElementById('user-name').textContent = cvData.coordonnees.nom;
+  document.getElementById('user-title').textContent = cvData.statut;
+
+  const contactList = document.getElementById('contact-list');
+  contactList.innerHTML = `
+    <span class="contact-item">${cvData.coordonnees.adresse}</span>
+    <span class="contact-item">${cvData.coordonnees.email}</span>
+    <span class="contact-item">${cvData.coordonnees.permis}</span>
+    <a class="contact-item" href="https://${cvData.coordonnees.linkedin}" target="_blank">LinkedIn</a>
+    <a class="contact-item" href="https://${cvData.coordonnees.github}" target="_blank">GitHub</a>
+  `;
+}
+
+function renderProfile() {
+  if (!profileContainer || !cvData) return;
+  profileContainer.textContent = cvData.profil;
+}
+
+// 4. Compétences
 function renderSkills() {
   if (!skillsContainer || !cvData) return;
   skillsContainer.innerHTML = '';
 
   cvData.competences.forEach(cat => {
-    const catDiv = document.createElement('div');
-    catDiv.className = 'skill-category';
+    const groupTitle = document.createElement('div');
+    groupTitle.className = 'skill-group-title';
+    groupTitle.textContent = cat.categorie;
+    skillsContainer.appendChild(groupTitle);
 
-    const title = document.createElement('div');
-    title.className = 'skill-category-title';
-    title.textContent = cat.categorie;
-    catDiv.appendChild(title);
-
-    const flex = document.createElement('div');
-    flex.className = 'skills-flex';
+    const tagGroup = document.createElement('div');
+    tagGroup.className = 'skill-tag-group';
 
     cat.liste.forEach(item => {
       const tag = document.createElement('span');
-      tag.className = `skill-tag ${item.featured ? 'featured' : ''}`;
+      tag.className = 'skill-tag';
       tag.dataset.skill = item.nom;
+      tag.dataset.defaultFeatured = item.featured ? "true" : "false";
       tag.textContent = item.nom;
 
       tag.addEventListener('mouseenter', () => handleSkillHover(item.nom));
       tag.addEventListener('mouseleave', () => handleSkillHover(null));
       tag.addEventListener('click', () => toggleSkillFilter(item.nom));
 
-      flex.appendChild(tag);
+      tagGroup.appendChild(tag);
     });
 
-    catDiv.appendChild(flex);
-    skillsContainer.appendChild(catDiv);
+    skillsContainer.appendChild(tagGroup);
   });
+
+  updateVisualHighlighting();
 }
 
-// 4. Rendu des Expériences
+// 5. Expériences Professionnelles
 function renderExperiences() {
   if (!timelineContainer || !cvData) return;
   timelineContainer.innerHTML = '';
 
-  cvData.experiences.forEach((exp, index) => {
+  // Mode d'affichage compact/complet via boutons radio
+  const viewMode = document.querySelector('input[name="viewMode"]:checked')?.value || 'compact';
+  const expsToRender = (viewMode === 'compact')
+    ? cvData.experiences.filter(e => e.featured)
+    : cvData.experiences;
+
+  expsToRender.forEach((exp, index) => {
     const expDiv = document.createElement('div');
-    expDiv.className = `exp-card ${exp.featured ? 'featured-exp' : ''}`;
+    expDiv.className = 'exp-card';
     expDiv.dataset.expIdx = index;
+    expDiv.dataset.defaultFeatured = exp.featured ? "true" : "false";
     expDiv.dataset.skills = JSON.stringify(exp.skills || []);
 
-    const inner = document.createElement('div');
-    inner.className = 'exp-inner';
+    const companyLabel = exp.prestataire ? `${exp.entreprise} (via ${exp.prestataire})` : exp.entreprise;
 
     const header = document.createElement('div');
     header.className = 'exp-header';
-
-    const companyLabel = exp.prestataire ? `${exp.entreprise} (via ${exp.prestataire})` : exp.entreprise;
     header.innerHTML = `
       <div>
         <div class="exp-role">${exp.poste}</div>
         <div class="exp-company">${companyLabel}</div>
       </div>
-      <div class="exp-period">${exp.periode}</div>
+      <div class="exp-date">${exp.periode}</div>
     `;
-
-    const loc = document.createElement('div');
-    loc.className = 'exp-location';
-    loc.textContent = exp.ville;
+    expDiv.appendChild(header);
 
     const missionsList = document.createElement('ul');
-    missionsList.className = 'exp-missions';
+    missionsList.className = 'exp-list';
     exp.missions.forEach(m => {
       const li = document.createElement('li');
-      li.className = 'mission-item';
       li.textContent = m;
       missionsList.appendChild(li);
     });
-
-    const expSkillsDiv = document.createElement('div');
-    expSkillsDiv.className = 'exp-skills';
-    (exp.skills || []).forEach(s => {
-      const tag = document.createElement('span');
-      tag.className = 'skill-tag';
-      tag.dataset.skill = s;
-      tag.textContent = s;
-      tag.addEventListener('mouseenter', (e) => { e.stopPropagation(); handleSkillHover(s); });
-      tag.addEventListener('mouseleave', (e) => { e.stopPropagation(); handleSkillHover(null); });
-      tag.addEventListener('click', (e) => { e.stopPropagation(); toggleSkillFilter(s); });
-      expSkillsDiv.appendChild(tag);
-    });
-
-    inner.appendChild(header);
-    if (exp.ville) inner.appendChild(loc);
-    inner.appendChild(missionsList);
-    if (exp.skills.length > 0) inner.appendChild(expSkillsDiv);
-    expDiv.appendChild(inner);
+    expDiv.appendChild(missionsList);
 
     expDiv.addEventListener('mouseenter', () => handleExperienceHover(index));
     expDiv.addEventListener('mouseleave', () => handleExperienceHover(null));
 
     timelineContainer.appendChild(expDiv);
   });
+
+  updateVisualHighlighting();
 }
 
-// 5. Rendu des Projets
+// 6. Projets
 function renderProjects() {
   if (!projectsContainer || !cvData) return;
   projectsContainer.innerHTML = '';
@@ -172,38 +172,38 @@ function renderProjects() {
     card.className = 'project-card';
     card.dataset.skills = JSON.stringify(proj.skills || []);
 
-    const top = document.createElement('div');
-    top.innerHTML = `
-      <div class="project-header">
-        <span class="project-title">${proj.titre}</span>
-        <span class="badge badge-${proj.type_badge}">${proj.badge}</span>
+    card.innerHTML = `
+      <div class="project-title">
+        <span>${proj.titre}</span>
+        <span class="project-badge ${proj.type_badge}">${proj.badge}</span>
       </div>
       <div class="project-desc">${proj.desc}</div>
     `;
 
-    const skillsDiv = document.createElement('div');
-    skillsDiv.className = 'exp-skills';
-    skillsDiv.style.borderTop = 'none';
-    skillsDiv.style.paddingTop = '0';
-
-    (proj.skills || []).forEach(s => {
-      const tag = document.createElement('span');
-      tag.className = 'skill-tag';
-      tag.dataset.skill = s;
-      tag.textContent = s;
-      tag.addEventListener('mouseenter', (e) => { e.stopPropagation(); handleSkillHover(s); });
-      tag.addEventListener('mouseleave', (e) => { e.stopPropagation(); handleSkillHover(null); });
-      tag.addEventListener('click', (e) => { e.stopPropagation(); toggleSkillFilter(s); });
-      skillsDiv.appendChild(tag);
-    });
-
-    card.appendChild(top);
-    if (proj.skills.length > 0) card.appendChild(skillsDiv);
     projectsContainer.appendChild(card);
   });
 }
 
-// 6. Gestion du Survol et du Filtrage
+// 7. Formations
+function renderEducation() {
+  if (!eduContainer || !cvData) return;
+  eduContainer.innerHTML = '';
+
+  cvData.formations.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'edu-block';
+    div.innerHTML = `
+      <div class="edu-title">${f.diplome}</div>
+      <div class="edu-sub">
+        <span>${f.institution}</span>
+        <span class="edu-year">${f.annee}</span>
+      </div>
+    `;
+    eduContainer.appendChild(div);
+  });
+}
+
+// 8. Gestion de l'interactivité et basculement (Toggle) "Featured"
 function handleSkillHover(skillName) {
   hoveredSkill = skillName;
   updateVisualHighlighting();
@@ -216,18 +216,7 @@ function handleExperienceHover(expIdx) {
 
 function toggleSkillFilter(skillName) {
   activeFilterSkill = (activeFilterSkill === skillName) ? null : skillName;
-  updateFilterState();
   updateVisualHighlighting();
-}
-
-function updateFilterState() {
-  if (!filterBanner) return;
-  if (activeFilterSkill) {
-    filterBanner.classList.add('active');
-    if (filterSkillName) filterSkillName.textContent = activeFilterSkill;
-  } else {
-    filterBanner.classList.remove('active');
-  }
 }
 
 function updateVisualHighlighting() {
@@ -235,44 +224,59 @@ function updateVisualHighlighting() {
   const allExpCards = document.querySelectorAll('.exp-card');
   const allProjCards = document.querySelectorAll('.project-card');
 
-  // Reset & Filtre actif
+  const isInteracting = activeFilterSkill || hoveredSkill || hoveredExperienceIdx !== null;
+
+  // --- A. ÉTAT PAR DÉFAUT (Aucune interaction) ---
+  if (!isInteracting) {
+    allSkillTags.forEach(tag => {
+      tag.classList.remove('highlighted', 'dimmed', 'active-filter');
+      if (tag.dataset.defaultFeatured === "true") {
+        tag.classList.add('featured');
+      } else {
+        tag.classList.remove('featured');
+      }
+    });
+
+    allExpCards.forEach(card => {
+      card.classList.remove('highlighted', 'dimmed');
+      if (card.dataset.defaultFeatured === "true") {
+        card.classList.add('featured-exp');
+      } else {
+        card.classList.remove('featured-exp');
+      }
+    });
+
+    allProjCards.forEach(card => card.classList.remove('highlighted', 'dimmed'));
+    return;
+  }
+
+  // --- B. ÉTAT INTERACTIF (Filtre ou Survol) ---
   allSkillTags.forEach(tag => {
-    tag.classList.remove('highlighted', 'dimmed', 'active-filter');
+    tag.classList.remove('featured', 'highlighted', 'dimmed', 'active-filter');
     if (activeFilterSkill && tag.dataset.skill === activeFilterSkill) {
       tag.classList.add('active-filter');
     }
   });
 
-  allExpCards.forEach(card => card.classList.remove('highlighted', 'dimmed'));
+  allExpCards.forEach(card => card.classList.remove('featured-exp', 'highlighted', 'dimmed'));
   allProjCards.forEach(card => card.classList.remove('highlighted', 'dimmed'));
 
-  // Application du filtre de clic
-  if (activeFilterSkill) {
-    allExpCards.forEach(card => {
-      const skills = JSON.parse(card.dataset.skills || '[]');
-      if (!skills.includes(activeFilterSkill)) card.classList.add('dimmed');
-    });
-    allProjCards.forEach(card => {
-      const skills = JSON.parse(card.dataset.skills || '[]');
-      if (!skills.includes(activeFilterSkill)) card.classList.add('dimmed');
-    });
-  }
+  // Application du filtrage / survol des compétences
+  if (hoveredSkill || activeFilterSkill) {
+    const targetSkill = hoveredSkill || activeFilterSkill;
 
-  // Application du survol d'une compétence
-  if (hoveredSkill) {
     allSkillTags.forEach(tag => {
-      if (tag.dataset.skill === hoveredSkill) {
+      if (tag.dataset.skill === targetSkill) {
         tag.classList.add('highlighted');
-      } else if (!activeFilterSkill) {
+      } else {
         tag.classList.add('dimmed');
       }
     });
 
     allExpCards.forEach(card => {
       const skills = JSON.parse(card.dataset.skills || '[]');
-      if (skills.includes(hoveredSkill)) {
+      if (skills.includes(targetSkill)) {
         card.classList.add('highlighted');
-        card.classList.remove('dimmed');
       } else {
         card.classList.add('dimmed');
       }
@@ -280,9 +284,8 @@ function updateVisualHighlighting() {
 
     allProjCards.forEach(card => {
       const skills = JSON.parse(card.dataset.skills || '[]');
-      if (skills.includes(hoveredSkill)) {
+      if (skills.includes(targetSkill)) {
         card.classList.add('highlighted');
-        card.classList.remove('dimmed');
       } else {
         card.classList.add('dimmed');
       }
@@ -290,13 +293,17 @@ function updateVisualHighlighting() {
   }
 
   // Application du survol d'une carte d'expérience
-  if (hoveredExperienceIdx !== null && !hoveredSkill && cvData) {
-    const targetExp = cvData.experiences[hoveredExperienceIdx];
-    if (targetExp) {
+  if (hoveredExperienceIdx !== null && !hoveredSkill) {
+    const expCardsArray = Array.from(allExpCards);
+    const targetCard = expCardsArray[hoveredExperienceIdx];
+
+    if (targetCard) {
+      const skills = JSON.parse(targetCard.dataset.skills || '[]');
+
       allSkillTags.forEach(tag => {
-        if ((targetExp.skills || []).includes(tag.dataset.skill)) {
+        if (skills.includes(tag.dataset.skill)) {
           tag.classList.add('highlighted');
-        } else if (!activeFilterSkill) {
+        } else {
           tag.classList.add('dimmed');
         }
       });
@@ -304,7 +311,7 @@ function updateVisualHighlighting() {
       allExpCards.forEach((card, idx) => {
         if (idx === hoveredExperienceIdx) {
           card.classList.add('highlighted');
-        } else if (!activeFilterSkill) {
+        } else {
           card.classList.add('dimmed');
         }
       });
@@ -312,47 +319,5 @@ function updateVisualHighlighting() {
   }
 }
 
-// 7. Barre de recherche contextuelle
-if (searchInput) {
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    const allExpCards = document.querySelectorAll('.exp-card');
-    const allProjCards = document.querySelectorAll('.project-card');
-
-    if (!query) {
-      allExpCards.forEach(c => c.style.display = 'block');
-      allProjCards.forEach(c => c.style.display = 'flex');
-      return;
-    }
-
-    allExpCards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(query) ? 'block' : 'none';
-    });
-
-    allProjCards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(query) ? 'flex' : 'none';
-    });
-  });
-}
-
-// 8. Réinitialisation des filtres et Mode sombre
-if (resetFilterBtn) {
-  resetFilterBtn.addEventListener('click', () => {
-    activeFilterSkill = null;
-    updateFilterState();
-    updateVisualHighlighting();
-  });
-}
-
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-  });
-}
-
-// Lancement au chargement de la page
+// Chargement initial au démarrage
 window.onload = loadCVData;
