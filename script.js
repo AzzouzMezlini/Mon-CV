@@ -30,9 +30,18 @@ function populateCV(data) {
         <a class="contact-item" href="https://${coords.github}" target="_blank"><strong>github.com/AzzouzMezlini</strong></a>
     `;
 
-    // 3. Compétences
+    // 3. Compétences (avec gestion des compétences clés / featured)
     document.getElementById("skills-container").innerHTML = data.competences.map(cat => {
-        const tags = cat.liste.map(t => '<span class="skill-tag">' + t + '</span>').join('');
+        const tags = cat.liste.map(item => {
+            // Supporte { nom: "dbt", featured: true } ou simple chaîne "dbt"
+            const isObj = typeof item === 'object';
+            const name = isObj ? item.nom : item;
+            const isFeatured = isObj && item.featured;
+            const extraClass = isFeatured ? 'featured' : '';
+
+            return `<span class="skill-tag ${extraClass}">${name}</span>`;
+        }).join('');
+
         return `
             <div class="skill-group-title">${cat.categorie}</div>
             <div class="skill-tag-group">${tags}</div>
@@ -66,25 +75,26 @@ function populateCV(data) {
 function renderExperiences() {
     if (!cvData) return;
 
-    // Récupération de l'option sélectionnée ("compact" ou "full")
     const mode = document.querySelector('input[name="viewMode"]:checked')?.value || 'compact';
-
-    // Si mode compact : on prend les 7 premières expériences (ou celles marquées featured), sinon tout
     const experiencesToDisplay = (mode === 'compact')
         ? cvData.experiences.slice(0, 7)
         : cvData.experiences;
 
-    // Injection dans le conteneur
     document.getElementById("experience-container").innerHTML = experiencesToDisplay.map(exp => {
         const bullets = exp.missions.map(m => '<li>' + m + '</li>').join('');
         const featuredClass = exp.featured ? 'featured-exp' : '';
+
+        // Gestion de la présence du prestataire
+        const providerHtml = exp.prestataire
+            ? ` <span class="exp-provider">(via ${exp.prestataire})</span>`
+            : '';
 
         return `
             <div class="exp-card ${featuredClass}">
                 <div class="exp-header">
                     <div class="exp-role-company">
                         <span class="exp-role">${exp.poste}</span> —
-                        <span class="exp-company">${exp.entreprise}</span>
+                        <span class="exp-company">${exp.entreprise}${providerHtml}</span>
                     </div>
                     <span class="exp-date">${exp.periode}</span>
                 </div>
