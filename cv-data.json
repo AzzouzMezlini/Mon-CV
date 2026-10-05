@@ -22,7 +22,7 @@
         { "nom": "Contrôle Qualité & Recette Données", "featured": false },
         { "nom": "Migration", "featured": true },
         { "nom": "Cadrage & Budget Projet BI", "featured": false },
-        { "nom": "Pipelines ETL", "featured": true }
+        { "nom": "ETL", "featured": true }
       ]
     },
     {
@@ -109,7 +109,9 @@
         "ETL",
         "Bitbucket",
         "Git",
-        "Jira"
+        "Migration",
+        "Jira",
+        "PR & Code Review"
       ]
     },
     {
@@ -154,9 +156,10 @@
       "skills": [
         "Power Query",
         "Excel",
-        "Data Migration",
+        "Migration",
         "ETL",
-        "Data Cleansing"
+        "Data Cleansing",
+        "VBA POO"
       ]
     },
     {
@@ -174,10 +177,11 @@
       "skills": [
         "SQL Server",
         "SSRS",
-        "Pentaho",
+        "Pentaho ETL",
         "Oracle",
         "Data Warehouse",
-        "Méthode MERISE (MCD/MLD)"
+        "Méthode MERISE (MCD/MLD)",
+        "Schéma en Étoile"
       ]
     },
     {
