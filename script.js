@@ -49,15 +49,19 @@ function populateCV(data) {
     }).join('');
 
     // 4. Portfolio de projets
-    document.getElementById("projects-container").innerHTML = data.projets.map(proj => `
-        <div class="project-card">
-            <div class="project-title">
-                <span>${proj.titre}</span>
-                <span class="project-badge">${proj.badge}</span>
+    document.getElementById("projects-container").innerHTML = data.projets.map(proj => {
+        const badgeClass = proj.type_badge === 'kaggle' ? 'project-badge kaggle' : 'project-badge';
+
+        return `
+            <div class="project-card">
+                <div class="project-title">
+                    <span>${proj.titre}</span>
+                    <span class="${badgeClass}">${proj.badge}</span>
+                </div>
+                <div class="project-desc">${proj.desc}</div>
             </div>
-            <div class="project-desc">${proj.desc}</div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 
     // 5. Formations
     document.getElementById("education-container").innerHTML = data.formations.map(edu => `

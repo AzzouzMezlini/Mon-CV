@@ -243,6 +243,11 @@ html, body {
     font-weight: 700;
     font-family: monospace;
 }
+.project-badge.kaggle {
+    background: #fef3c7;
+    color: #92400e;
+}
+
 .project-desc {
     font-size: 7.2pt;
     color: #475569;
@@ -337,6 +342,13 @@ html, body {
     font-weight: 600;
     color: #334155;
 }
+
+.exp-provider {
+    font-weight: 400;
+    color: #64748b;
+    font-size: 8pt;
+}
+
 .exp-date {
     font-size: 7.2pt;
     font-weight: 600;
