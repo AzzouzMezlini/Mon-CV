@@ -1,250 +1,268 @@
 {
-  "statut": "Data Engineer / Développeur SQL & Data",
-  "coordonnees": {
-    "nom": "Azzouz Mezlini",
-    "adresse": "38240 Meylan",
-    "email": "azzouz.mezlini@gmail.com",
-    "permis": "Permis B",
-    "linkedin": "linkedin.com/in/azzouz-mezlini",
-    "github": "github.com/AzzouzMezlini"
-  },
-  "profil": "Data Engineer et Développeur SQL (10+ ans), spécialiste en SQL avancé, modélisation décisionnelle et automatisation ETL. Solide double profil alliant expertise technique (dbt, Cube.dev, PostgreSQL, SQL Server, VBA POO) et fine compréhension des enjeux métiers (Gérance, Achats, Contrôle de gestion). Anglais courant.",
-  {
-    "competences": [
-      {
-        "categorie": "Data Engineering & BI",
-        "liste": [
-          { "nom": "dbt", "featured": true },
-          { "nom": "Cube.dev", "featured": false },
-          { "nom": "Pentaho ETL", "featured": false },
-          { "nom": "Knime", "featured": true },
-          { "nom": "Data Warehouse", "featured": true },
-          { "nom": "Power Query", "featured": false },
-          { "nom": "SSRS", "featured": false },
-          { "nom": "DAX", "featured": false },
-          { "nom": "Data Lineage & Quality Control", "featured": false }
-        ]
-      },
-      {
-        "categorie": "Bases de Données",
-        "liste": [
-          { "nom": "PostgreSQL", "featured": true },
-          { "nom": "PL/SQL", "featured": true },
-          { "nom": "SQL Server", "featured": false },
-          { "nom": "Oracle", "featured": false },
-          { "nom": "Schéma en Étoile", "featured": true },
-          { "nom": "Méthode MERISE (MCD/MLD)", "featured": true },
-          { "nom": "Rétro-conception BDD", "featured": true }
-        ]
-      },
-      {
-        "categorie": "Langages & Outillage",
-        "liste": [
-          { "nom": "Python", "featured": true },
-          { "nom": "VBA POO", "featured": false },
-          { "nom": "Java / Spring", "featured": false },
-          { "nom": "Git", "featured": true },
-          { "nom": "C#", "featured": false },
-          { "nom": "PHP / CakePHP", "featured": false },
-          { "nom": "JavaScript", "featured": false },
-          { "nom": "Pandas", "featured": true }
-        ]
-      },
-      {
-        "categorie": "Méthodologies & Architecture",
-        "liste": [
-          { "nom": "Architecture POO", "featured": true },
-          { "nom": "Principes SOLID / DIP", "featured": false },
-          { "nom": "Architecture Hexagonale", "featured": false }
-        ]
-      }
-    ]
-  },
-  "experiences": [
-    {
-      "poste": "Développeur Visual Basic",
-      "entreprise": "Becton Dickinson",
-      "prestataire": "CORIS Innovation",
-      "periode": "09/2025 – 05/2026",
-      "ville": "Grenoble",
-      "featured": true,
-      "missions": [
-        "Développement VBA avancé sous Excel : architecture POO, principe d'inversion de dépendances (DIP), séparation des responsabilités.",
-        "Conception de modules robustes : gestion centralisée des erreurs, manipulation avancée des ListObject et typage fort.",
-        "Automatisation métier & Intégrité : duplication des règles de validation, application dynamique de formats conditionnels et contrôle d'intégrité à l'entrée.",
-        "Modélisation & Performance : mise en cache via Scripting.Dictionary en O(1), optimisation de la mémoire.",
-        "IHM & Paramétrage : interfaces UserForms découplées du modèle de données, loaders personnalisés et centralisation de la configuration via ConfigManager."
-      ]
-    },
-    {
-      "poste": "Développeur SQL",
-      "entreprise": "NEOTEEM",
-      "periode": "11/2022 – 08/2024",
-      "ville": "Meylan",
-      "featured": false,
-      "missions": [
-        "Développement et optimisation de scripts SQL sous PostgreSQL versionnés sous Git.",
-        "Extraction et analyse des données sources via rétro-conception de schémas complexes.",
-        "Conception, correction et sécurisation des traitements d'insertion de données."
-      ]
-    },
-    {
-      "poste": "Formateur Informatique & BDD",
-      "entreprise": "EVOGUE",
-      "periode": "11/2021 – 11/2022",
-      "ville": "",
-      "featured": false,
-      "missions": [
-        "Modélisation de bases de données selon la méthode MERISE : dictionnaire de données, matrice et arbre fonctionnel, MCD, MLD, contraintes d'intégrité.",
-        "Administration & Exploitation SQL : DDL, DML, DCL, jointures complexes, sous-requêtes, procédures stockées, fonctions et événements.",
-        "Formations Langages : bases du langage Java SE et développement d'applications Web avec Java EE / Spring Framework (MVC, injection de dépendances, CRUD)."
-      ]
-    },
-    {
-      "poste": "Développeur / Automatisation",
-      "entreprise": "MasterGrid",
-      "periode": "07/2021 – 07/2021",
-      "ville": "Grenoble",
-      "featured": false,
-      "missions": [
-        "Automatisation de tables de conversion d'articles via VBA et Power Query avec génération dynamique des connexions aux onglets.",
-        "Développement de formulaires Excel POO en VBA pour simplifier et sécuriser la création des fichiers d'importation SAGE X3."
-      ]
-    },
-    {
-      "poste": "Data Engineer - Excel Power Query",
-      "entreprise": "MasterGrid",
-      "periode": "07/2020 – 01/2021",
-      "ville": "Grenoble",
-      "featured": false,
-      "missions": [
-        "Migration vers SAGE X3 : transformation des formats de dates, conversion des barèmes de prix, transcodage des références articles, clients et fournisseurs.",
-        "Modelage des données d'import : ordonnancement des colonnes, filtrage/découpage des lignes et détection des données manquantes.",
-        "Pipelines ETL Power Query : production des fichiers d'import CSV, suivi des logs d'importation et mesures correctives."
-      ]
-    },
-    {
-      "poste": "Référent Service Information - Data Engineer",
-      "entreprise": "Haute-Savoie HABITAT",
-      "periode": "09/2018 – 09/2019",
-      "ville": "Annecy",
-      "featured": false,
-      "missions": [
-        "Data Warehouse : conception et déploiement d'un entrepôt de données décisionnel sous Microsoft SQL Server.",
-        "ETL & Reporting : intégration des données avec Pentaho ETL et élaboration de tableaux de bord décisionnels sous SQL Server Reporting Services (SSRS)."
-      ]
-    },
-    {
-      "poste": "Technicien support / Proximité",
-      "entreprise": "Grenoble École de Management",
-      "prestataire": "SPIE ICS",
-      "periode": "12/2016 – 01/2018",
-      "ville": "Grenoble",
-      "featured": false,
-      "missions": [
-        "Assistance et résolution d'incidents matériels (PC, tablettes, terminaux mobiles) et logiciels (Windows 7/10, suites bureautiques) en environnement utilisateur."
-      ]
-    },
-    {
-      "poste": "Technicien proximité",
-      "entreprise": "Conseil Régional Auvergne-Rhône-Alpes",
-      "prestataire": "SPIE ICS",
-      "periode": "10/2016 – 11/2016",
-      "ville": "Lyon",
-      "featured": false,
-      "missions": [
-        "Traitement des incidents matériels, logiciels et impression en soutien informatique de proximité."
-      ]
-    },
-    {
-      "poste": "Développeur logiciels Backend",
-      "entreprise": "ITY Consulting",
-      "periode": "05/2015 – 08/2015",
-      "ville": "Lyon",
-      "featured": false,
-      "missions": [
-        "Développement backend d'un logiciel de Gestion Électronique de Documents (GED) collaborative sous PHP / CakePHP et JavaScript."
-      ]
-    },
-    {
-      "poste": "Technicien Polyvalent IT",
-      "entreprise": "Delpharm Lyon",
-      "prestataire": "SPIE ICS",
-      "periode": "07/2014 – 10/2014",
-      "ville": "Lyon",
-      "featured": false,
-      "missions": [
-        "Soutien à la DSI : gestion du parc informatique, relation avec les fournisseurs de matériel et diffusion des règles/procédures internes."
-      ]
-    },
-    {
-      "poste": "Technicien proximité",
-      "entreprise": "Grand Lyon Habitat",
-      "prestataire": "SPIE ICS",
-      "periode": "07/2014 – 09/2014",
-      "ville": "Lyon",
-      "featured": false,
-      "missions": [
-        "Support matériel, logiciel et réseau (configuration de postes, dépannage de proximité)."
-      ]
-    },
-    {
-      "poste": "Technicien support Hotline",
-      "entreprise": "Conseil Régional Auvergne-Rhône-Alpes",
-      "prestataire": "SPIE ICS",
-      "periode": "01/2012 – 01/2014",
-      "ville": "Lyon",
-      "featured": false,
-      "missions": [
-        "Prise en charge d'appels entrants, diagnostic de niveau 0, 1 et 2, rédaction de procédures et création d'outils d'automatisation."
-      ]
-    },
-    {
-      "poste": "Technicien support",
-      "entreprise": "Feu Vert",
-      "prestataire": "SPIE ICS",
-      "periode": "10/2010 – 12/2012",
-      "ville": "Saint-Didier-au-Mont-d'Or",
-      "featured": false,
-      "missions": [
-        "Support informatique de niveau 0/1 sur le matériel, les logiciels métiers et les systèmes de caisse."
-      ]
-    }
-  ],
-  "projets": [
-    {
-      "titre": "dbt-supply-chain-BI",
-      "badge": "GitHub",
-      "type_badge": "github",
-      "desc": "Modélisation décisionnelle Supply Chain sous dbt (lineage, tests d'intégrité)."
-    },
-    {
-      "titre": "cube-supply-chain-bi",
-      "badge": "GitHub",
-      "type_badge": "github",
-      "desc": "Couche sémantique et API analytique via Cube.dev."
-    },
-    {
-      "titre": "Geospatial Analysis",
-      "badge": "Kaggle",
-      "type_badge": "kaggle",
-      "desc": "Cartographie et analyse de données géospatiales sous Python."
-    },
-    {
-      "titre": "HTML Table to DataFrame",
-      "badge": "Kaggle",
-      "type_badge": "kaggle",
-      "desc": "Parsing et structuration de tables web vers pandas."
-    },
-    {
-      "titre": "Data Cleaning (Nested Sets)",
-      "badge": "Kaggle",
-      "type_badge": "kaggle",
-      "desc": "Traitement et désimbrication de structures complexes."
-    }
-  ],
-  "formations": [
-    { "diplome": "Licence Pro Big Data (Alternance)", "institution": "IUT2 Grenoble", "annee": "2018 – 2019" },
-    { "diplome": "Développeur Full Stack Java", "institution": "M2i Grenoble", "annee": "2018" }
-  ]
+"statut": "Data Engineer / Développeur SQL & Data",
+"coordonnees": {
+"nom": "Azzouz Mezlini",
+"adresse": "38240 Meylan",
+"email": "azzouz.mezlini@gmail.com",
+"permis": "Permis B",
+"linkedin": "linkedin.com/in/azzouz-mezlini",
+"github": "github.com/AzzouzMezlini"
+},
+"profil": "Data Engineer et Développeur SQL (10+ ans), spécialiste en SQL avancé, modélisation décisionnelle et automatisation ETL. Solide double profil alliant expertise technique (dbt, Cube.dev, PostgreSQL, SQL Server, VBA POO) et fine compréhension des enjeux métiers (Gérance, Achats, Contrôle de gestion). Anglais courant.",
+"competences": [
+{
+"categorie": "Data Engineering & BI",
+"liste": [
+{ "nom": "dbt", "featured": true },
+{ "nom": "Cube.dev", "featured": false },
+{ "nom": "Pentaho ETL", "featured": false },
+{ "nom": "Knime", "featured": true },
+{ "nom": "Data Warehouse", "featured": true },
+{ "nom": "Power Query", "featured": false },
+{ "nom": "SSRS", "featured": false },
+{ "nom": "DAX", "featured": false },
+{ "nom": "Data Lineage & Quality Control", "featured": false }
+]
+},
+{
+"categorie": "Bases de Données",
+"liste": [
+{ "nom": "PostgreSQL", "featured": true },
+{ "nom": "PL/SQL", "featured": true },
+{ "nom": "SQL Server", "featured": false },
+{ "nom": "Oracle", "featured": false },
+{ "nom": "Schéma en Étoile", "featured": true },
+{ "nom": "Méthode MERISE (MCD/MLD)", "featured": true },
+{ "nom": "Rétro-conception BDD", "featured": true }
+]
+},
+{
+"categorie": "Langages & Outillage",
+"liste": [
+{ "nom": "Python", "featured": true },
+{ "nom": "VBA POO", "featured": false },
+{ "nom": "Java / Spring", "featured": false },
+{ "nom": "Git", "featured": true },
+{ "nom": "C#", "featured": false },
+{ "nom": "PHP / CakePHP", "featured": false },
+{ "nom": "JavaScript", "featured": false },
+{ "nom": "Pandas", "featured": true }
+]
+},
+{
+"categorie": "Méthodologies & Architecture",
+"liste": [
+{ "nom": "Architecture POO", "featured": true },
+{ "nom": "Principes SOLID / DIP", "featured": false },
+{ "nom": "Architecture Hexagonale", "featured": false }
+]
+}
+],
+"experiences": [
+{
+"poste": "Développeur Visual Basic",
+"entreprise": "Becton Dickinson",
+"prestataire": "CORIS Innovation",
+"periode": "09/2025 – 05/2026",
+"ville": "Grenoble",
+"featured": true,
+"missions": [
+"Développement VBA avancé sous Excel : architecture POO, principe d'inversion de dépendances (DIP), séparation des responsabilités.",
+"Conception de modules robustes : gestion centralisée des erreurs, manipulation avancée des ListObject et typage fort.",
+"Automatisation métier & Intégrité : duplication des règles de validation, application dynamique de formats conditionnels et contrôle d'intégrité à l'entrée.",
+"Modélisation & Performance : mise en cache via Scripting.Dictionary en O(1), optimisation de la mémoire.",
+"IHM & Paramétrage : interfaces UserForms découplées du modèle de données, loaders personnalisés et centralisation de la configuration via ConfigManager."
+],
+"skills": ["VBA POO",
+    "Architecture POO",
+    "Principes SOLID / DIP"]
+},
+{
+"poste": "Développeur SQL",
+"entreprise": "NEOTEEM",
+"periode": "11/2022 – 08/2024",
+"ville": "Meylan",
+"featured": false,
+"missions": [
+"Développement et optimisation de scripts SQL sous PostgreSQL versionnés sous Git.",
+"Extraction et analyse des données sources via rétro-conception de schémas complexes.",
+"Conception, correction et sécurisation des traitements d'insertion de données."
+],
+"skills": ["PostgreSQL"]
+},
+{
+"poste": "Formateur Informatique & BDD",
+"entreprise": "EVOGUE",
+"periode": "11/2021 – 11/2022",
+"ville": "",
+"featured": false,
+"missions": [
+"Modélisation de bases de données selon la méthode MERISE : dictionnaire de données, matrice et arbre fonctionnel, MCD, MLD, contraintes d'intégrité.",
+"Administration & Exploitation SQL : DDL, DML, DCL, jointures complexes, sous-requêtes, procédures stockées, fonctions et événements.",
+"Formations Langages : bases du langage Java SE et développement d'applications Web avec Java EE / Spring Framework (MVC, injection de dépendances, CRUD)."
+],
+"skills": []
+},
+{
+"poste": "Développeur / Automatisation",
+"entreprise": "MasterGrid",
+"periode": "07/2021 – 07/2021",
+"ville": "Grenoble",
+"featured": false,
+"missions": [
+"Automatisation de tables de conversion d'articles via VBA et Power Query avec génération dynamique des connexions aux onglets.",
+"Développement de formulaires Excel POO en VBA pour simplifier et sécuriser la création des fichiers d'importation SAGE X3."
+],
+"skills": []
+},
+{
+"poste": "Data Engineer - Excel Power Query",
+"entreprise": "MasterGrid",
+"periode": "07/2020 – 01/2021",
+"ville": "Grenoble",
+"featured": false,
+"missions": [
+"Migration vers SAGE X3 : transformation des formats de dates, conversion des barèmes de prix, transcodage des références articles, clients et fournisseurs.",
+"Modelage des données d'import : ordonnancement des colonnes, filtrage/découpage des lignes et détection des données manquantes.",
+"Pipelines ETL Power Query : production des fichiers d'import CSV, suivi des logs d'importation et mesures correctives."
+],
+"skills": []
+},
+{
+"poste": "Référent Service Information - Data Engineer",
+"entreprise": "Haute-Savoie HABITAT",
+"periode": "09/2018 – 09/2019",
+"ville": "Annecy",
+"featured": false,
+"missions": [
+"Data Warehouse : conception et déploiement d'un entrepôt de données décisionnel sous Microsoft SQL Server.",
+"ETL & Reporting : intégration des données avec Pentaho ETL et élaboration de tableaux de bord décisionnels sous SQL Server Reporting Services (SSRS)."
+],
+"skills": []
+},
+{
+"poste": "Technicien support / Proximité",
+"entreprise": "Grenoble École de Management",
+"prestataire": "SPIE ICS",
+"periode": "12/2016 – 01/2018",
+"ville": "Grenoble",
+"featured": false,
+"missions": [
+"Assistance et résolution d'incidents matériels (PC, tablettes, terminaux mobiles) et logiciels (Windows 7/10, suites bureautiques) en environnement utilisateur."
+],
+"skills": []
+},
+{
+"poste": "Technicien proximité",
+"entreprise": "Conseil Régional Auvergne-Rhône-Alpes",
+"prestataire": "SPIE ICS",
+"periode": "10/2016 – 11/2016",
+"ville": "Lyon",
+"featured": false,
+"missions": [
+"Traitement des incidents matériels, logiciels et impression en soutien informatique de proximité."
+],
+"skills": []
+},
+{
+"poste": "Développeur logiciels Backend",
+"entreprise": "ITY Consulting",
+"periode": "05/2015 – 08/2015",
+"ville": "Lyon",
+"featured": false,
+"missions": [
+"Développement backend d'un logiciel de Gestion Électronique de Documents (GED) collaborative sous PHP / CakePHP et JavaScript."
+],
+"skills": []
+},
+{
+"poste": "Technicien Polyvalent IT",
+"entreprise": "Delpharm Lyon",
+"prestataire": "SPIE ICS",
+"periode": "07/2014 – 10/2014",
+"ville": "Lyon",
+"featured": false,
+"missions": [
+"Soutien à la DSI : gestion du parc informatique, relation avec les fournisseurs de matériel et diffusion des règles/procédures internes."
+],
+"skills": []
+},
+{
+"poste": "Technicien proximité",
+"entreprise": "Grand Lyon Habitat",
+"prestataire": "SPIE ICS",
+"periode": "07/2014 – 09/2014",
+"ville": "Lyon",
+"featured": false,
+"missions": [
+"Support matériel, logiciel et réseau (configuration de postes, dépannage de proximité)."
+],
+"skills": []
+},
+{
+"poste": "Technicien support Hotline",
+"entreprise": "Conseil Régional Auvergne-Rhône-Alpes",
+"prestataire": "SPIE ICS",
+"periode": "01/2012 – 01/2014",
+"ville": "Lyon",
+"featured": false,
+"missions": [
+"Prise en charge d'appels entrants, diagnostic de niveau 0, 1 et 2, rédaction de procédures et création d'outils d'automatisation."
+],
+"skills": []
+},
+{
+"poste": "Technicien support",
+"entreprise": "Feu Vert",
+"prestataire": "SPIE ICS",
+"periode": "10/2010 – 12/2012",
+"ville": "Saint-Didier-au-Mont-d'Or",
+"featured": false,
+"missions": [
+"Support informatique de niveau 0/1 sur le matériel, les logiciels métiers et les systèmes de caisse."
+],
+"skills": []
+}
+],
+"projets": [
+{
+"titre": "dbt-supply-chain-BI",
+"badge": "GitHub",
+"type_badge": "github",
+"desc": "Modélisation décisionnelle Supply Chain sous dbt (lineage, tests d'intégrité).",
+"skills": []
+},
+{
+"titre": "cube-supply-chain-bi",
+"badge": "GitHub",
+"type_badge": "github",
+"desc": "Couche sémantique et API analytique via Cube.dev.",
+"skills": []
+},
+{
+"titre": "Geospatial Analysis",
+"badge": "Kaggle",
+"type_badge": "kaggle",
+"desc": "Cartographie et analyse de données géospatiales sous Python.",
+"skills": []
+},
+{
+"titre": "HTML Table to DataFrame",
+"badge": "Kaggle",
+"type_badge": "kaggle",
+"desc": "Parsing et structuration de tables web vers pandas.",
+"skills": []
+},
+{
+"titre": "Data Cleaning (Nested Sets)",
+"badge": "Kaggle",
+"type_badge": "kaggle",
+"desc": "Traitement et désimbrication de structures complexes.",
+"skills": []
+}
+],
+"formations": [
+{ "diplome": "Licence Pro Big Data (Alternance)", "institution": "IUT2 Grenoble", "annee": "2018 – 2019" },
+{ "diplome": "Développeur Full Stack Java", "institution": "M2i Grenoble", "annee": "2018" }
+]
 }
