@@ -287,6 +287,44 @@ html, body {
     font-family: monospace;
 }
 
+/* --- ÉTATS DYNAMIQUES JS (Survol / Filtre) --- */
+
+/* Badge de compétence mis en avant */
+.skill-tag.highlighted {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  opacity: 1 !important;
+  font-weight: 600;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+/* Badge filtré / cliqué */
+.skill-tag.active-filter {
+  background-color: #1e40af;
+  color: #ffffff;
+  border-color: #1e40af;
+  opacity: 1 !important;
+  font-weight: bold;
+}
+
+/* Carte d'expérience ou de projet mise en avant */
+.exp-card.highlighted,
+.project-card.highlighted {
+  border-left: 4px solid #2563eb;
+  background-color: #f8fafc;
+  opacity: 1 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Éléments masqués / atténués lors d'une interaction */
+.dimmed {
+  opacity: 0.25 !important;
+  filter: grayscale(60%);
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
 .edu-block {
     margin-bottom: 0.25rem;
 }
