@@ -33,31 +33,35 @@
             <div class="contact-grid" id="contact-list"></div>
         </header>
 
+        <!-- BANDEAU PROFIL ET COMPÉTENCES STICKY -->
+        <aside class="profile-card" id="profile-text"></aside>
+
+        <!-- Bloc Compétences Clefs (Sticky tout en haut, fond opaque) -->
+        <section id="sec-skills">
+            <div class="section-title">Compétences Clefs</div>
+            <div id="skills-container"></div>
+        </section>
+
         <!-- LAYOUT À DEUX COLONNES -->
         <div class="layout">
 
             <!-- SIDEBAR (GAUCHE) -->
             <aside class="col-side">
-                <section>
-                    <div class="section-title">Portfolio Technique</div>
-                    <div id="projects-container"></div>
-                </section>
-
-                <section>
-                    <div class="section-title">Compétences Clefs</div>
-                    <div id="skills-container"></div>
-                </section>
-
-                <section>
+                <!-- 1. Formations -->
+                <section id="sec-education">
                     <div class="section-title">Formations</div>
                     <div id="education-container"></div>
+                </section>
+
+                <!-- 2. Portfolio / Side Projects -->
+                <section id="sec-projects">
+                    <div class="section-title">Portfolio Technique</div>
+                    <div id="projects-container"></div>
                 </section>
             </aside>
 
             <!-- COLONNE PRINCIPALE (DROITE) -->
             <main class="col-main">
-                <div class="profile-card" id="profile-text"></div>
-
                 <section class="exp-section">
                     <div class="section-title">Parcours Professionnel</div>
                     <div class="exp-container" id="experience-container"></div>

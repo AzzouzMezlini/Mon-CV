@@ -5,14 +5,19 @@
     size: A4 portrait;
     margin: 0;
 }
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     background-color: #0f172a;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif;
     color: #1e293b;
     -webkit-font-smoothing: antialiased;
 }
@@ -147,6 +152,14 @@ html, body {
 /* ==========================================================================
    5. LAYOUT (2 COLONNES)
    ========================================================================== */
+
+.top-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
 .layout {
     display: flex;
     gap: 0.75rem;
@@ -154,23 +167,36 @@ html, body {
     min-height: 0;
 }
 
+/* Espacement naturel et propre de la sidebar */
 .col-side {
     flex: 0.95;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Alignement vers le haut (au lieu de space-between) */
-    gap: 1rem;                  /* Espacement fixe et équilibré entre les sections */
+    gap: 1rem;
     background-color: #f8fafc;
     padding: 0.5rem 0.625rem;
     border-radius: 0.375rem;
     border: 1px solid #e2e8f0;
 }
 
+/* BLOC COMPÉTENCES STICKY COMPATIBLE FIREFOX */
+#sec-skills {
+    position: -webkit-sticky; /* Pour la compatibilité Safari */
+    position: sticky;
+    top: 0;              /* Laisse un petit espace sous le haut de l'écran */
+    z-index: 100;
+    background-color: #ffffff;
+    padding: 0.5rem 0.625rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.75rem;    /* Espace avant de démarrer le layout 2 colonnes */
+}
+
 .col-main {
     flex: 2.05;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .exp-section {
@@ -208,15 +234,16 @@ html, body {
     background: #cbd5e1;
 }
 
+/* CARTE DE PROFIL */
 .profile-card {
     background: #e0e7ff;
     border-left: 0.2rem solid #4f46e5;
-    padding: 0.375rem 0.5625rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 0 0.25rem 0.25rem 0;
-    font-size: 8pt;
+    font-size: 8.5pt;
     line-height: 1.35;
     color: #1e1b4b;
-    margin-bottom: 0.375rem;
+    margin-bottom: 0.5rem; /* Marge sous la carte profil */
 }
 
 .project-card {
@@ -291,38 +318,40 @@ html, body {
 
 /* Badge de compétence mis en avant */
 .skill-tag.highlighted {
-  background-color: #2563eb;
-  color: #ffffff;
-  border-color: #2563eb;
-  opacity: 1 !important;
-  font-weight: 600;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    background-color: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    opacity: 1 !important;
+    font-weight: 600;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
 }
 
 /* Badge filtré / cliqué */
 .skill-tag.active-filter {
-  background-color: #1e40af;
-  color: #ffffff;
-  border-color: #1e40af;
-  opacity: 1 !important;
-  font-weight: bold;
+    background-color: #1e40af;
+    color: #ffffff;
+    border-color: #1e40af;
+    opacity: 1 !important;
+    font-weight: bold;
 }
 
 /* Carte d'expérience ou de projet mise en avant */
 .exp-card.highlighted,
 .project-card.highlighted {
-  border-left: 4px solid #2563eb;
-  background-color: #f8fafc;
-  opacity: 1 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #2563eb;
+    background-color: #f8fafc;
+    opacity: 1 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Éléments masqués / atténués lors d'une interaction */
 .dimmed {
-  opacity: 0.25 !important;
-  filter: grayscale(60%);
-  transition: opacity 0.2s ease, filter 0.2s ease;
+    opacity: 0.25 !important;
+    filter: grayscale(60%);
+    transition:
+        opacity 0.2s ease,
+        filter 0.2s ease;
 }
 
 .edu-block {
@@ -362,7 +391,11 @@ html, body {
 }
 .exp-card.featured-exp {
     border-left: 0.2rem solid #4f46e5;
-    background: linear-gradient(90deg, rgba(224, 231, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(
+        90deg,
+        rgba(224, 231, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
     border-radius: 0 0.25rem 0.25rem 0;
 }
 .exp-header {
