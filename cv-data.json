@@ -15,21 +15,22 @@
       "liste": [
         { "nom": "Analyse de Données", "featured": true },
         { "nom": "Rétro-conception BDD", "featured": true },
+        { "nom": "Migration", "featured": true },
         { "nom": "Mapping & Transformation de Données", "featured": false },
         { "nom": "Normalisation de Données", "featured": false },
         { "nom": "Modélisation BDD", "featured": false },
         { "nom": "Data Cleansing", "featured": false },
         { "nom": "Contrôle Qualité & Recette Données", "featured": false },
-        { "nom": "Migration", "featured": true },
-        { "nom": "Cadrage & Budget Projet BI", "featured": false },
-        { "nom": "ETL", "featured": true }
+        { "nom": "Cadrage & Budget Projet", "featured": false }
       ]
     },
     {
       "categorie": "Bases de Données",
       "liste": [
         { "nom": "PostgreSQL", "featured": true },
+        { "nom": "MySQL", "featured": true },
         { "nom": "PL/SQL", "featured": true },
+        { "nom": "ETL", "featured": true },
         { "nom": "SQL Server", "featured": false },
         { "nom": "Oracle", "featured": false },
         { "nom": "Méthode MERISE (MCD/MLD)", "featured": false },
@@ -40,15 +41,18 @@
       "categorie": "Langages & Outillage",
       "liste": [
         { "nom": "Python", "featured": true },
+        { "nom": "SQL", "featured": true },
+        { "nom": "Git", "featured": true },
         { "nom": "VBA POO", "featured": true },
+        { "nom": "Jira", "featured": true },
         { "nom": "Excel Avancé", "featured": false },
         { "nom": "Java / Spring", "featured": false },
-        { "nom": "Git", "featured": true },
         { "nom": "C#", "featured": false },
+        { "nom": "R", "featured": false },
         { "nom": "PHP / CakePHP", "featured": false },
         { "nom": "JavaScript", "featured": false },
+        { "nom": "HTML & CSS", "featured": false },
         { "nom": "Pandas", "featured": false },
-        { "nom": "SQL", "featured": true },
         { "nom": "Pentaho ETL", "featured": false },
         { "nom": "Knime", "featured": false },
         { "nom": "dbt", "featured": false },
@@ -56,14 +60,14 @@
         { "nom": "SSRS", "featured": false },
         { "nom": "DAX", "featured": false },
         { "nom": "Power Query", "featured": false },
-        { "nom": "Bitbucket", "featured": false },
-        { "nom": "Jira", "featured": true }
+        { "nom": "Bitbucket", "featured": false }
       ]
     },
     {
       "categorie": "Méthodologies & Architecture",
       "liste": [
-        { "nom": "PR & Code Review", "featured": true },
+        { "nom": "Projection de données", "featured": false  },
+        { "nom": "PR & Code Review", "featured": false },
         { "nom": "Architecture POO", "featured": false },
         { "nom": "Principes SOLID / DIP", "featured": false },
         { "nom": "Architecture Hexagonale", "featured": false },
@@ -86,7 +90,12 @@
         "Modélisation & Performance : mise en cache via Scripting.Dictionary en O(1), optimisation de la mémoire.",
         "IHM & Paramétrage : interfaces UserForms découplées du modèle de données, loaders personnalisés et centralisation de la configuration via ConfigManager."
       ],
-      "skills": ["VBA POO", "Architecture POO", "Principes SOLID / DIP"]
+      "skills": [
+        "VBA POO",
+        "Excel Avancé",
+        "Architecture POO",
+        "Principes SOLID / DIP"
+      ]
     },
     {
       "poste": "Développeur SQL",
@@ -101,16 +110,24 @@
         "Exécution des migrations de données vers l'application cible, suivi des demandes via Jira et accompagnement/support post-migration."
       ],
       "skills": [
+        "Analyse de Données",
+        "Rétro-conception BDD",
         "Data Modeling",
+        "Pandas",
+        "Normalisation de Données",
         "Mapping & Transformation de Données",
         "PostgreSQL",
         "PL/SQL",
         "SQL",
+        "SQL",
         "ETL",
         "Bitbucket",
         "Git",
+        "Python",
         "Migration",
+        "Data Warehouse",
         "Jira",
+        "Contrôle Qualité & Recette Données",
         "PR & Code Review"
       ]
     },
@@ -125,7 +142,10 @@
         "Administration & Exploitation SQL : DDL, DML, DCL, jointures complexes, sous-requêtes, procédures stockées, fonctions et événements.",
         "Formations Langages : bases du langage Java SE et développement d'applications Web avec Java EE / Spring Framework (MVC, injection de dépendances, CRUD)."
       ],
-      "skills": []
+      "skills": [
+        "Mapping & Transformation de Données",
+        "Normalisation de Données"
+      ]
     },
     {
       "poste": "Développeur / Automatisation (Freelance)",
@@ -138,7 +158,14 @@
         "Mise en place de flux d'intégration Power Query pour importer, croiser et faire la correspondance entre différentes sources de données via les identifiants fabricant.",
         "Création de formulaires ergonomiques et sécurisés pour simplifier la saisie et automatiser le mapping des références d'articles (destinés à l'import Sage X3)."
       ],
-      "skills": ["VBA", "Power Query", "Excel"]
+      "skills": [
+        "VBA",
+        "VBA POO",
+        "Excel Avancé",
+        "Power Query",
+        "Excel",
+        "Cadrage & Budget Projet"
+      ]
     },
     {
       "poste": "Data Engineer - Excel Power Query",
@@ -159,7 +186,10 @@
         "Migration",
         "ETL",
         "Data Cleansing",
-        "VBA POO"
+        "Mapping & Transformation de Données",
+        "Normalisation de Données",
+        "Migration",
+        "Excel Avancé"
       ]
     },
     {
@@ -176,12 +206,25 @@
       ],
       "skills": [
         "SQL Server",
-        "SSRS",
+        "Data Cleansing",
+        "ETL",
         "Pentaho ETL",
+        "SSRS",
+        "Normalisation de Données",
+        "Schéma en Étoile",
+        "Pentaho ETL",
+        "Modélisation BDD",
         "Oracle",
+        "Rétro-conception BDD",
         "Data Warehouse",
+        "Analyse de Données",
         "Méthode MERISE (MCD/MLD)",
-        "Schéma en Étoile"
+        "SQL Server",
+        "Schéma en Étoile",
+        "Cadrage & Budget Projet",
+        "Oracle",
+        "Méthode MERISE (MCD/MLD)",
+        "Data Warehouse"
       ]
     },
     {
@@ -217,7 +260,15 @@
       "missions": [
         "Développement backend d'un logiciel de Gestion Électronique de Documents (GED) collaborative sous PHP / CakePHP et JavaScript."
       ],
-      "skills": []
+      "skills": [
+        "Architecture POO",
+        "Principes SOLID / DIP",
+        "Architecture Hexagonale",
+        "Modélisation BDD",
+        "MySQL",
+        "PHP / CakePHP",
+        "JavaScript"
+      ]
     },
     {
       "poste": "Technicien Polyvalent IT",
@@ -274,47 +325,89 @@
       "badge": "GitHub",
       "type_badge": "github",
       "desc": "Modélisation décisionnelle Supply Chain sous dbt (lineage, tests d'intégrité).",
-      "skills": []
+      "skills": [
+        "Git",
+        "dbt",
+        "ETL",
+        "Data Warehouse",
+        "Mapping & Transformation de Données"
+      ]
     },
     {
       "titre": "cube-supply-chain-bi",
       "badge": "GitHub",
       "type_badge": "github",
       "desc": "Couche sémantique et API analytique via Cube.dev.",
-      "skills": []
+      "skills": ["Analyse de Données", "Schéma en Étoile"]
     },
     {
       "titre": "Geospatial Analysis",
       "badge": "Kaggle",
       "type_badge": "kaggle",
       "desc": "Cartographie et analyse de données géospatiales sous Python.",
-      "skills": []
+      "skills": [
+        "Analyse de Données",
+        "Mapping & Transformation de Données",
+        "Data Cleansing",
+        "Contrôle Qualité & Recette Données",
+        "Python",
+        "Pandas"
+      ]
     },
     {
       "titre": "HTML Table to DataFrame",
       "badge": "Kaggle",
       "type_badge": "kaggle",
       "desc": "Parsing et structuration de tables web vers pandas.",
-      "skills": []
+      "skills": [
+        "Analyse de Données",
+        "Mapping & Transformation de Données",
+        "Data Cleansing",
+        "Contrôle Qualité & Recette Données",
+        "Python",
+        "Pandas"
+      ]
     },
     {
       "titre": "Data Cleaning (Nested Sets)",
       "badge": "Kaggle",
       "type_badge": "kaggle",
       "desc": "Traitement et désimbrication de structures complexes.",
-      "skills": []
+      "skills": [
+        "Analyse de Données",
+        "Mapping & Transformation de Données",
+        "Data Cleansing",
+        "Contrôle Qualité & Recette Données",
+        "Python",
+        "Pandas"
+      ]
     }
   ],
   "formations": [
     {
       "diplome": "Licence Pro Big Data (Alternance)",
       "institution": "IUT2 Grenoble",
-      "annee": "2018 – 2019"
+      "annee": "2018 – 2019",
+      "skills": [
+        "Analyse de Données",
+        "Projection de données",
+        "Mapping & Transformation de Données",
+        "Data Cleansing",
+        "Contrôle Qualité & Recette Données",
+        "R"
+      ]
     },
     {
       "diplome": "Développeur Full Stack Java",
       "institution": "M2i Grenoble",
-      "annee": "2018"
+      "annee": "2018",
+      "skills": [
+        "Java / Spring",
+        "HTML & CSS",
+        "Architecture POO",
+        "Architecture Hexagonale",
+        "Principes SOLID / DIP"
+      ]
     }
   ]
 }
