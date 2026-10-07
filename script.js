@@ -98,8 +98,8 @@ function renderSkills() {
       tag.dataset.defaultFeatured = item.featured ? "true" : "false";
       tag.textContent = item.nom;
 
-      tag.addEventListener('mouseenter', () => handleSkillHover(item.nom));
-      tag.addEventListener('mouseleave', () => handleSkillHover(null));
+      //tag.addEventListener('mouseenter', () => handleSkillHover(item.nom));
+      //tag.addEventListener('mouseleave', () => handleSkillHover(null));
       tag.addEventListener('click', () => toggleSkillFilter(item.nom));
 
       tagGroup.appendChild(tag);
