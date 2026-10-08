@@ -9,16 +9,37 @@
 <body>
     <!-- BARRE DE CONTRÔLE (Écran uniquement) -->
     <div class="controls-bar">
-        <div>
-            <strong>Mode d'affichage :</strong>
-            <label style="display:inline-flex; margin-left:10px;">
-                <input type="radio" name="viewMode" value="compact" checked onchange="renderExperiences()"> Vue Synthétique A4 (Abrégé des 7 dernières missions)
-            </label>
-            <label style="display:inline-flex; margin-left:10px;">
-                <input type="radio" name="viewMode" value="full" onchange="renderExperiences()"> Vue Complète
-            </label>
+        <!-- Groupe de gauche : Options d'affichage -->
+        <div class="controls-group">
+            <span class="controls-label">Mode d'affichage :</span>
+            <div class="controls-options">
+                <label class="radio-option">
+                    <input type="radio" name="viewMode" value="compact" checked onchange="renderExperiences()">
+                    <span>Vue Synthétique A4 <small>(7 dernières missions)</small></span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="viewMode" value="full" onchange="renderExperiences()">
+                    <span>Vue Complète</span>
+                </label>
+            </div>
         </div>
-        <button class="btn-print" onclick="window.print()">📄 Imprimer / Export PDF</button>
+
+        <!-- Groupe de droite : Actions -->
+        <div class="controls-actions">
+            <button class="btn-print" onclick="window.print()">
+                📄 Imprimer / Export PDF
+            </button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+                <span class="theme-toggle-icon">
+                    <span class="theme-icon-light">🌙</span>
+                    <span class="theme-icon-dark">☀️</span>
+                </span>
+                <span class="theme-toggle-text">
+                    <span class="theme-text-light">Mode sombre</span>
+                    <span class="theme-text-dark">Mode clair</span>
+                </span>
+            </button>
+        </div>
     </div>
 
     <!-- PAGE A4 UNIQUE -->

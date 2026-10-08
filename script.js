@@ -15,6 +15,48 @@ const eduContainer = document.getElementById('education-container');
 
 // 1. Chargement initial des données
 
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const storageKey = 'cv_theme_preference';
+
+    // 1. Détection du thème initial (localStorage ou préférence système)
+    const getPreferredTheme = () => {
+        const savedTheme = localStorage.getItem(storageKey);
+        if (savedTheme) {
+            return savedTheme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+
+    // 2. Application immédiate du thème (sans transition pour éviter le FOUC)
+    const initialTheme = getPreferredTheme();
+    document.documentElement.setAttribute('data-theme', initialTheme);
+
+    // 3. Activation des transitions CSS après le premier rendu
+    requestAnimationFrame(() => {
+        document.body.classList.add('theme-transition');
+    });
+
+    // 4. Gestion du clic sur le bouton toggle
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem(storageKey, newTheme);
+        });
+    }
+
+    // 5. Écoute des changements de préférence système OS en temps réel
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem(storageKey)) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+        }
+    });
+});
+
 function initViewModeFromURL() {
   const urlParams = new URLSearchParams(window.location.search);
   const modeParam = urlParams.get('view'); // Récupère la valeur de ?view=...

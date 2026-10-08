@@ -1,5 +1,85 @@
 /* ==========================================================================
-   1. RESET & BASE
+   1. VARIABLES DE THÈME (Clair / Sombre)
+   ========================================================================== */
+:root {
+    --bg-color: #f0f2f5;
+    --page-bg: #ffffff;
+    --card-bg: #ffffff;
+    --profile-bg: #f8fafc;
+    --sticky-bg: #ffffff;
+
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --text-light: #a0aec0;
+    --text-heading: #0d1117;
+
+    --border-color: #e2e8f0;
+    --border-subtle: #edf2f7;
+    --accent-color: #b8923a;
+    --accent-hover: #9d7a2b;
+    --accent-light: #fffaf0;
+
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --shadow-sticky: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+    --bg-color: #0d1117;
+    --page-bg: #161b22;
+    --card-bg: #1e2530;
+    --profile-bg: #21262d;
+    --sticky-bg: #161b22;
+
+    --text-primary: #e6edf3;
+    --text-secondary: #c9d1d9;
+    --text-muted: #8b949e;
+    --text-light: #6e7681;
+    --text-heading: #ffffff;
+
+    --border-color: #30363d;
+    --border-subtle: #21262d;
+    --accent-color: #d4af37;
+    --accent-hover: #b8923a;
+    --accent-light: #282115;
+
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-sticky: rgba(0, 0, 0, 0.3);
+}
+
+
+[data-theme="dark"] .theme-icon-light,
+[data-theme="dark"] .theme-text-light {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-dark,
+[data-theme="dark"] .theme-text-dark {
+    display: inline;
+}
+
+/* Ajustement spécifique au mode sombre activé sur l'interface */
+[data-theme="dark"] .theme-toggle {
+    background: #1a202c;
+    border-color: #b8923a;
+    color: #f7fafc;
+}
+
+/* ==========================================================================
+   2. TRANSITIONS THÈME (Appliquées dynamiquement par JS pour éviter le FOUC)
+   ========================================================================== */
+body.theme-transition,
+body.theme-transition *,
+body.theme-transition *::before,
+body.theme-transition *::after {
+    transition: background-color 0.35s ease,
+                color 0.35s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease !important;
+}
+
+/* ==========================================================================
+   3. RESET & BASE
    ========================================================================== */
 *,
 *::before,
@@ -11,9 +91,9 @@ html,
 body {
     margin: 0;
     padding: 0;
-    background-color: #f0f2f5;
+    background-color: var(--bg-color);
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-    color: #2d3748;
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -37,7 +117,7 @@ body {
 }
 
 /* ==========================================================================
-   2. CONTROLS BAR (Écran)
+   4. BARRE DE CONTRÔLE (Écran)
    ========================================================================== */
 .controls-bar {
     max-width: 210mm;
@@ -45,56 +125,132 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
     background: #1a202c;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     border-radius: 0.5rem;
     color: #f7fafc;
     font-size: 8.5pt;
 }
 
-.controls-bar label {
+/* Groupe de gauche (Titre + Radios) */
+.controls-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.controls-label {
+    font-weight: 700;
+    color: #e2e8f0;
+    white-space: nowrap;
+}
+
+.controls-options {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0 !important;
+    white-space: nowrap;
+}
+
+.radio-option input[type="radio"] {
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+}
+
+.radio-option small {
+    color: #a0aec0;
+    font-size: 7.5pt;
+}
+
+/* Groupe de droite (Boutons) */
+.controls-actions {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    cursor: pointer;
-    font-weight: 600;
+    flex-shrink: 0;
 }
 
 .btn-print {
-    background: #b8923a;
+    background: var(--accent-color);
     color: #ffffff;
     border: none;
-    padding: 0.375rem 0.875rem;
-    border-radius: 0.25rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 0.375rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s ease;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .btn-print:hover {
-    background: #9d7a2b;
+    background: var(--accent-hover);
+    transform: translateY(-1px);
 }
 
+/* Bouton Bascule de Thème (Design Pro & Épuré) */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #2d3748;
+    border: 1px solid #4a5568;
+    color: #f7fafc;
+    padding: 0.35rem 0.75rem;
+    border-radius: 1.5rem; /* Forme pilule très lisible */
+    cursor: pointer;
+    font-size: 8.5pt;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.theme-toggle:hover {
+    background: #3a4a61;
+    border-color: #718096;
+    transform: translateY(-1px);
+}
+
+/* Gestion des icônes et textes selon le thème actif */
+.theme-icon-dark,
+.theme-text-dark {
+    display: none;
+}
+
+
 /* ==========================================================================
-   3. STRUCTURAL PAGE CONTAINER (A4)
+   5. CONTENEUR PAGE (A4 Écran)
    ========================================================================== */
 .page {
     width: 210mm;
     min-height: 297mm;
     margin: 0.75rem auto;
     padding: 10mm 12mm;
-    background-color: #ffffff;
+    background-color: var(--page-bg);
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.5rem 1.5rem var(--shadow-color);
 }
 
 /* ==========================================================================
-   4. HEADER & CARTE PROFIL
+   6. HEADER & CARTE PROFIL
    ========================================================================== */
 .header {
-    background: #ffffff;
+    background: transparent;
     padding: 0 0 0.75rem 0;
     display: flex;
     flex-direction: column;
@@ -107,7 +263,7 @@ body {
     font-size: 22pt;
     font-weight: 900;
     letter-spacing: 0.05em;
-    color: #0d1117;
+    color: var(--text-heading);
     text-transform: uppercase;
     line-height: 1.1;
 }
@@ -117,7 +273,7 @@ body {
     margin-top: 0.25rem;
     font-size: 10.5pt;
     font-weight: 700;
-    color: #b8923a;
+    color: var(--accent-color);
     letter-spacing: 0.02em;
 }
 
@@ -135,7 +291,7 @@ body {
     border: none;
     padding: 0;
     font-size: 8pt;
-    color: #718096;
+    color: var(--text-muted);
     display: inline-flex;
     align-items: center;
     gap: 0.3em;
@@ -145,27 +301,27 @@ body {
 .contact-item svg {
     width: 0.9em;
     height: 0.9em;
-    fill: #b8923a;
+    fill: var(--accent-color);
     flex-shrink: 0;
 }
 
 .contact-item strong {
-    color: #2d3748;
+    color: var(--text-primary);
 }
 
 .profile-card {
-    background: #f8fafc;
-    border-left: 3px solid #b8923a;
+    background: var(--profile-bg);
+    border-left: 3px solid var(--accent-color);
     padding: 0.6rem 0.85rem;
     border-radius: 0 0.25rem 0.25rem 0;
     font-size: 8.5pt;
     line-height: 1.4;
-    color: #4a5568;
+    color: var(--text-secondary);
     margin-bottom: 1rem;
 }
 
 /* ==========================================================================
-   5. LAYOUT DEUX COLONNES (Écran : Bandeau au-dessus)
+   7. LAYOUT ET TITRES DE SECTION
    ========================================================================== */
 .layout {
     display: grid;
@@ -191,33 +347,25 @@ body {
     gap: 1.25rem;
 }
 
-/* ==========================================================================
-   6. TITRES DE SECTION
-   ========================================================================== */
 .section-title {
     font-size: 9pt;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #718096;
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     margin-bottom: 0.6rem;
     padding-bottom: 0.25rem;
-    border-bottom: 1.5px solid #e2e8f0;
+    border-bottom: 1.5px solid var(--border-color);
 }
 
-/* Afficher le bandeau du haut, masquer celui du side */
-/*#sec-skills-top {
-    display: block;
-}
-*/
 #sec-skills-side {
     display: none;
 }
 
 /* ==========================================================================
-   7. PARCOURS PROFESSIONNEL (Expériences)
+   8. EXPÉRIENCES PROFESSIONNELLES
    ========================================================================== */
 .exp-section {
     display: flex;
@@ -235,7 +383,11 @@ body {
 .exp-card {
     padding: 0;
     border-left: none;
-    transition: all 0.2s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.exp-card:hover {
+    transform: translateY(-2px);
 }
 
 .exp-header {
@@ -248,7 +400,7 @@ body {
 .exp-role {
     font-size: 10pt;
     font-weight: 800;
-    color: #1a202c;
+    color: var(--text-heading);
 }
 
 .exp-sub-header {
@@ -260,25 +412,25 @@ body {
 
 .exp-company {
     font-weight: 700;
-    color: #b8923a;
+    color: var(--accent-color);
 }
 
 .exp-provider {
     font-weight: 400;
-    color: #718096;
+    color: var(--text-muted);
 }
 
 .exp-date {
     font-size: 7.5pt;
     font-weight: 600;
-    color: #a0aec0;
+    color: var(--text-light);
 }
 
 .exp-list {
     margin: 0.25rem 0 0 0;
     padding-left: 1rem;
     font-size: 8pt;
-    color: #4a5568;
+    color: var(--text-secondary);
     line-height: 1.35;
 }
 
@@ -287,11 +439,11 @@ body {
 }
 
 .exp-list li::marker {
-    color: #b8923a;
+    color: var(--accent-color);
 }
 
 /* ==========================================================================
-   8. COMPÉTENCES & INTERACTIVITÉ JS
+   9. COMPÉTENCES & TRANSITIONS SPÉCIFIQUES
    ========================================================================== */
 #sec-skills-top {
     grid-area: skills;
@@ -299,18 +451,18 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: #ffffff;
+    background-color: var(--sticky-bg);
     padding: 0.6rem 0.75rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 0.375rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px var(--shadow-sticky);
     margin-bottom: 0.5rem;
 }
 
 .skill-group-title {
     font-size: 7.5pt;
     font-weight: 700;
-    color: #a0aec0;
+    color: var(--text-light);
     margin-top: 0.35rem;
     margin-bottom: 0.2rem;
     text-transform: uppercase;
@@ -324,13 +476,23 @@ body {
 
 .skill-tag {
     font-size: 7.5pt;
-    background: #f7fafc;
-    border: 1px solid #e2e8f0;
-    color: #4a5568;
+    background: var(--profile-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
     padding: 2px 7px;
     border-radius: 3px;
-    transition: all 0.2s ease;
     cursor: pointer;
+    /* Transition isolée et fluide */
+    transition: background-color 0.35s ease-in-out,
+                border-color 0.35s ease-in-out,
+                color 0.35s ease-in-out,
+                opacity 0.35s ease-in-out,
+                transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.25s ease;
+}
+
+.skill-tag:hover {
+    transform: scale(1.08);
 }
 
 .skill-tag.featured {
@@ -340,11 +502,19 @@ body {
     font-weight: 600;
 }
 
-/* --- États JS survol / filtre --- */
+[data-theme="dark"] .skill-tag.featured {
+    background: #4a3712;
+    color: #fefcbf;
+    border-color: #b7791f;
+}
+
+/* ==========================================================================
+   10. ÉTATS JS (Survol, Filtres & Dimmed)
+   ========================================================================== */
 .skill-tag.highlighted {
-    background-color: #b8923a !important;
+    background-color: var(--accent-color) !important;
     color: #ffffff !important;
-    border-color: #b8923a !important;
+    border-color: var(--accent-color) !important;
     opacity: 1 !important;
     font-weight: 700;
     transform: translateY(-2px) scale(1.04);
@@ -352,18 +522,18 @@ body {
 }
 
 .skill-tag.active-filter {
-    background-color: #2d3748 !important;
-    color: #ffffff !important;
-    border-color: #2d3748 !important;
+    background-color: var(--text-primary) !important;
+    color: var(--page-bg) !important;
+    border-color: var(--text-primary) !important;
     opacity: 1 !important;
     font-weight: 700;
 }
 
 .exp-card.highlighted,
 .project-card.highlighted {
-    border-left: 3px solid #b8923a !important;
+    border-left: 3px solid var(--accent-color) !important;
     padding-left: 0.5rem;
-    background-color: #fffaf0;
+    background-color: var(--accent-light);
     opacity: 1 !important;
 }
 
@@ -373,22 +543,32 @@ body {
     transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
+.highlighted {
+    opacity: 1 !important;
+    filter: grayscale(0%);
+}
+
 /* ==========================================================================
-   9. PROJETS & FORMATIONS
+   11. PROJETS & FORMATIONS
    ========================================================================== */
 .project-card {
-    background: #ffffff;
-    border: 1px solid #edf2f7;
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
     border-radius: 0.25rem;
     padding: 0.35rem 0.5rem;
     margin-bottom: 0.35rem;
-    transition: all 0.2s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .project-title {
     font-size: 8pt;
     font-weight: 700;
-    color: #1a202c;
+    color: var(--text-heading);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -403,124 +583,116 @@ body {
     font-weight: 700;
 }
 
+[data-theme="dark"] .project-badge {
+    background: #4a3712;
+    color: #feebc8;
+}
+
 .project-desc {
     font-size: 7.5pt;
-    color: #718096;
+    color: var(--text-muted);
     margin-top: 0.15rem;
     line-height: 1.3;
 }
 
 .edu-block {
     margin-bottom: 0.5rem;
+    transition: transform 0.15s ease;
+}
+
+.edu-block:hover {
+    transform: translateY(-2px);
 }
 
 .edu-title {
     font-size: 8.5pt;
     font-weight: 700;
-    color: #1a202c;
+    color: var(--text-heading);
 }
 
 .edu-sub {
     font-size: 7.5pt;
-    color: #718096;
+    color: var(--text-muted);
     display: flex;
     justify-content: space-between;
     margin-top: 0.1rem;
 }
 
 .edu-company {
-    color: #b8923a;
+    color: var(--accent-color);
     font-weight: 600;
 }
 
 .edu-year {
     font-size: 7.5pt;
-    color: #a0aec0;
+    color: var(--text-light);
     font-weight: 600;
 }
 
-/* Transitions des cartes (rapides) */
-.exp-card,
-.project-card,
-.edu-block {
-    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease, background-color 0.2s ease;
-}
-
-/* Transition spécifique des compétences (plus lente et fluide) */
-.skill-tag {
-    transition: background-color 0.35s ease-in-out,
-                border-color 0.35s ease-in-out,
-                color 0.35s ease-in-out,
-                opacity 0.35s ease-in-out,
-                transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.25s ease;
-}
-
-/* Légère élévation au survol pour donner du relief */
-.exp-card:hover,
-.project-card:hover,
-.edu-block:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-/* Feedback visuel au survol d'un badge de compétence */
-.skill-tag:hover {
-    transform: scale(1.08);
-    cursor: pointer;
-}
-
-/* Élément mis en valeur */
-.highlighted {
-    opacity: 1 !important;
-    filter: grayscale(0%);
-}
-
 /* ==========================================================================
-   10. FOOTER
+   12. FOOTER
    ========================================================================== */
 .footer {
     margin-top: auto;
     padding-top: 0.5rem;
-    border-top: 1px solid #edf2f7;
+    border-top: 1px solid var(--border-subtle);
     display: flex;
     justify-content: space-between;
     font-size: 7pt;
-    color: #a0aec0;
+    color: var(--text-light);
 }
 
 /* ==========================================================================
-   11. MEDIA PRINT (Export PDF / Impression A4 - Page Unique)
+   13. MEDIA PRINT (Export PDF / Impression A4 STRICTEMENT SUR FOND BLANC)
    ========================================================================== */
 @page {
     size: A4 portrait;
-    margin: 0; /* Supprime les marges du navigateur (URL, date, numérotation) */
+    margin: 0;
 }
 
 @media print {
+    /* Forcer le rendu clair pour l'impression, peu importe le thème écran */
+    :root, [data-theme="dark"] {
+        --bg-color: #ffffff !important;
+        --page-bg: #ffffff !important;
+        --card-bg: #ffffff !important;
+        --profile-bg: #f8fafc !important;
+        --sticky-bg: #ffffff !important;
+
+        --text-primary: #2d3748 !important;
+        --text-secondary: #4a5568 !important;
+        --text-muted: #718096 !important;
+        --text-light: #a0aec0 !important;
+        --text-heading: #0d1117 !important;
+
+        --border-color: #e2e8f0 !important;
+        --border-subtle: #edf2f7 !important;
+        --accent-color: #b8923a !important;
+        --shadow-color: transparent !important;
+    }
+
     html, body {
         background: #ffffff !important;
         margin: 0 !important;
         padding: 0 !important;
         width: 210mm;
         height: 297mm;
-        /* overflow: hidden; /* Empêche physiquement de créer une 2ème page */
+        color: #000000 !important;
     }
 
-    /* Empêche les cartes d'expérience et de projet de se couper entre deux pages */
     .exp-card,
     .project-card,
     .edu-block {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
+        box-shadow: none !important;
+        transform: none !important;
     }
-
 
     .controls-bar {
         display: none !important;
     }
 
-    /* Bascule des compétences */
     #sec-skills-top {
         display: none !important;
     }
@@ -528,7 +700,6 @@ body {
         display: block !important;
     }
 
-    /* Conteneur principal A4 strict */
     .page {
         margin: 0 !important;
         border: none !important;
@@ -536,12 +707,12 @@ body {
         width: 210mm !important;
         height: 297mm !important;
         padding: 8mm 10mm !important;
-        display: block !important; /* Retour au mode block natif */
-        position: relative !important; /* Permet de fixer le footer tout en bas */
+        display: block !important;
+        position: relative !important;
         box-sizing: border-box !important;
+        background: #ffffff !important;
     }
 
-    /* Réduction globale pour garantir que tout rentre */
     .header {
         margin-bottom: 0.35rem !important;
         padding-bottom: 0.35rem !important;
@@ -563,7 +734,6 @@ body {
         padding-bottom: 0.15rem !important;
     }
 
-    /* Layout 2 colonnes */
     .layout {
         display: flex !important;
         flex-direction: row !important;
@@ -578,7 +748,6 @@ body {
         flex: 1.2 !important;
     }
 
-    /* Cartes & Textes condensés pour 1 page */
     .exp-container {
         gap: 0.4rem !important;
     }
@@ -621,10 +790,10 @@ body {
     }
 
     .footer {
-            display: flex !important;
-            position: static !important; /* Force le footer à se placer APRES le contenu */
-            margin-top: 1rem !important;
-            padding-top: 0.25rem !important;
-            border-top: 1px solid #e2e8f0 !important;
-        }
+        display: flex !important;
+        position: static !important;
+        margin-top: 1rem !important;
+        padding-top: 0.25rem !important;
+        border-top: 1px solid #e2e8f0 !important;
+    }
 }
