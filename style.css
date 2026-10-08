@@ -1,11 +1,6 @@
 /* ==========================================================================
-   1. RESET & SETUP
+   1. RESET & BASE
    ========================================================================== */
-@page {
-    size: A4 portrait;
-    margin: 0;
-}
-
 *,
 *::before,
 *::after {
@@ -22,8 +17,27 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Mode ultra-compact forcé pour le format A4 */
+.page.compact-view {
+    padding: 6mm 8mm !important;
+}
+
+.page.compact-view .exp-list {
+    font-size: 7.5pt !important;
+    line-height: 1.15 !important;
+}
+
+.page.compact-view .exp-card {
+    margin-bottom: 2px !important;
+}
+
+.page.compact-view .profile-card,
+.page.compact-view .section-title {
+    margin-bottom: 0.25rem !important;
+}
+
 /* ==========================================================================
-   2. CONTROLS BAR (ECRAN)
+   2. CONTROLS BAR (Écran)
    ========================================================================== */
 .controls-bar {
     max-width: 210mm;
@@ -76,26 +90,8 @@ body {
     box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
 }
 
-@media print {
-    .controls-bar {
-        display: none !important;
-    }
-    body {
-        background: none;
-    }
-    .page {
-        margin: 0;
-        border: none;
-        box-shadow: none;
-        width: 210mm;
-        min-height: 297mm;
-        padding: 8mm 10mm;
-        page-break-after: always;
-    }
-}
-
 /* ==========================================================================
-   4. HEADER (Inspiré de l'exemple : Nom grand, Sous-titre doré)
+   4. HEADER & CARTE PROFIL
    ========================================================================== */
 .header {
     background: #ffffff;
@@ -121,11 +117,10 @@ body {
     margin-top: 0.25rem;
     font-size: 10.5pt;
     font-weight: 700;
-    color: #b8923a; /* Couleur Dorée/Bronze */
+    color: #b8923a;
     letter-spacing: 0.02em;
 }
 
-/* Informations de contact sous le nom */
 .contact-grid {
     display: flex;
     flex-wrap: wrap;
@@ -158,25 +153,6 @@ body {
     color: #2d3748;
 }
 
-/* ==========================================================================
-   5. STICKY SKILLS BANNER (Bandeau de compétences dynamiques)
-   ========================================================================== */
-#sec-skills {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: #ffffff;
-    padding: 0.6rem 0.75rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.375rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1rem;
-}
-
-/* ==========================================================================
-   6. CARTE PROFIL (Texte de présentation sous le Header/Skills)
-   ========================================================================== */
 .profile-card {
     background: #f8fafc;
     border-left: 3px solid #b8923a;
@@ -189,35 +165,34 @@ body {
 }
 
 /* ==========================================================================
-   7. LAYOUT DEUX COLONNES (Inversion : Gauche = Expériences, Droite = Sidebar)
+   5. LAYOUT DEUX COLONNES (Écran : Bandeau au-dessus)
    ========================================================================== */
 .layout {
-    display: flex;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    grid-template-areas:
+        "skills skills"
+        "main   side";
+    gap: 1.25rem;
     flex: 1;
     min-height: 0;
 }
 
-/* Colonne Principale (Gauche) pour les Expériences */
 .col-main {
-    flex: 1.8;
+    grid-area: main;
     display: flex;
     flex-direction: column;
 }
 
-/* Colonne Secondaire (Droite) pour Formations, Projets, etc. */
 .col-side {
-    flex: 1.2;
+    grid-area: side;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    background-color: transparent;
-    padding: 0;
-    border: none;
 }
 
 /* ==========================================================================
-   8. TITRES DE SECTION (Style Enhancv avec ligne sous le texte)
+   6. TITRES DE SECTION
    ========================================================================== */
 .section-title {
     font-size: 9pt;
@@ -232,12 +207,17 @@ body {
     border-bottom: 1.5px solid #e2e8f0;
 }
 
-.section-title::before {
-    display: none; /* Suppression de l'indicateur vertical bleu d'origine */
+/* Afficher le bandeau du haut, masquer celui du side */
+/*#sec-skills-top {
+    display: block;
+}
+*/
+#sec-skills-side {
+    display: none;
 }
 
 /* ==========================================================================
-   9. CARTES D'EXPÉRIENCE (Parcours Professionnel)
+   7. PARCOURS PROFESSIONNEL (Expériences)
    ========================================================================== */
 .exp-section {
     display: flex;
@@ -254,13 +234,8 @@ body {
 
 .exp-card {
     padding: 0;
-    border-left: none; /* On retire la bordure d'origine pour coller à la capture */
-    transition: all 0.2s ease;
-}
-
-.exp-card.featured-exp {
     border-left: none;
-    background: transparent;
+    transition: all 0.2s ease;
 }
 
 .exp-header {
@@ -285,7 +260,7 @@ body {
 
 .exp-company {
     font-weight: 700;
-    color: #b8923a; /* Entreprise en couleur accentuée */
+    color: #b8923a;
 }
 
 .exp-provider {
@@ -297,9 +272,6 @@ body {
     font-size: 7.5pt;
     font-weight: 600;
     color: #a0aec0;
-    background: transparent;
-    padding: 0;
-    font-family: inherit;
 }
 
 .exp-list {
@@ -319,8 +291,22 @@ body {
 }
 
 /* ==========================================================================
-   10. SKILLS & TAGS (Conservation intégrale de la logique JS)
+   8. COMPÉTENCES & INTERACTIVITÉ JS
    ========================================================================== */
+#sec-skills-top {
+    grid-area: skills;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #ffffff;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0.5rem;
+}
+
 .skill-group-title {
     font-size: 7.5pt;
     font-weight: 700;
@@ -347,7 +333,6 @@ body {
     cursor: pointer;
 }
 
-/* Compétences mises en évidence par défaut */
 .skill-tag.featured {
     background: #fefcbf;
     color: #744210;
@@ -355,9 +340,7 @@ body {
     font-weight: 600;
 }
 
-/* --- ÉTATS DYNAMIQUES JS AU SURVOL / CLIC --- */
-
-/* Mis en avant par le JS au survol de l'expérience correspondante */
+/* --- États JS survol / filtre --- */
 .skill-tag.highlighted {
     background-color: #b8923a !important;
     color: #ffffff !important;
@@ -368,7 +351,6 @@ body {
     box-shadow: 0 2px 6px rgba(184, 146, 58, 0.35);
 }
 
-/* Badge filtré / cliqué */
 .skill-tag.active-filter {
     background-color: #2d3748 !important;
     color: #ffffff !important;
@@ -377,7 +359,6 @@ body {
     font-weight: 700;
 }
 
-/* Carte d'expérience mise en avant par le JS lors du survol d'un skill */
 .exp-card.highlighted,
 .project-card.highlighted {
     border-left: 3px solid #b8923a !important;
@@ -386,7 +367,6 @@ body {
     opacity: 1 !important;
 }
 
-/* Éléments non concernés / atténués lors d'un survol */
 .dimmed {
     opacity: 0.25 !important;
     filter: grayscale(80%);
@@ -394,7 +374,7 @@ body {
 }
 
 /* ==========================================================================
-   11. PROJETS ET FORMATIONS (SIDEBAR)
+   9. PROJETS & FORMATIONS
    ========================================================================== */
 .project-card {
     background: #ffffff;
@@ -460,7 +440,7 @@ body {
 }
 
 /* ==========================================================================
-   12. FOOTER
+   10. FOOTER
    ========================================================================== */
 .footer {
     margin-top: auto;
@@ -470,4 +450,144 @@ body {
     justify-content: space-between;
     font-size: 7pt;
     color: #a0aec0;
+}
+
+/* ==========================================================================
+   11. MEDIA PRINT (Export PDF / Impression A4 - Page Unique)
+   ========================================================================== */
+@page {
+    size: A4 portrait;
+    margin: 0; /* Supprime les marges du navigateur (URL, date, numérotation) */
+}
+
+@media print {
+    html, body {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm;
+        height: 297mm;
+        /* overflow: hidden; /* Empêche physiquement de créer une 2ème page */
+    }
+
+    /* Empêche les cartes d'expérience et de projet de se couper entre deux pages */
+    .exp-card,
+    .project-card,
+    .edu-block {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+
+    .controls-bar {
+        display: none !important;
+    }
+
+    /* Bascule des compétences */
+    #sec-skills-top {
+        display: none !important;
+    }
+    #sec-skills-side {
+        display: block !important;
+    }
+
+    /* Conteneur principal A4 strict */
+    .page {
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        padding: 8mm 10mm !important;
+        display: block !important; /* Retour au mode block natif */
+        position: relative !important; /* Permet de fixer le footer tout en bas */
+        box-sizing: border-box !important;
+    }
+
+    /* Réduction globale pour garantir que tout rentre */
+    .header {
+        margin-bottom: 0.35rem !important;
+        padding-bottom: 0.35rem !important;
+    }
+
+    .header-main h1 {
+        font-size: 18pt !important;
+    }
+
+    .profile-card {
+        padding: 0.4rem 0.6rem !important;
+        font-size: 8pt !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .section-title {
+        font-size: 8.5pt !important;
+        margin-bottom: 0.35rem !important;
+        padding-bottom: 0.15rem !important;
+    }
+
+    /* Layout 2 colonnes */
+    .layout {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 0.75rem !important;
+    }
+
+    .col-main {
+        flex: 1.8 !important;
+    }
+
+    .col-side {
+        flex: 1.2 !important;
+    }
+
+    /* Cartes & Textes condensés pour 1 page */
+    .exp-container {
+        gap: 0.4rem !important;
+    }
+
+    .exp-card {
+        margin-bottom: 0.2rem !important;
+    }
+
+    .exp-role {
+        font-size: 9pt !important;
+    }
+
+    .exp-list {
+        font-size: 7.5pt !important;
+        line-height: 1.2 !important;
+        padding-left: 0.8rem !important;
+        margin-top: 0.1rem !important;
+    }
+
+    .exp-list li {
+        margin-bottom: 0.1rem !important;
+    }
+
+    .project-card {
+        padding: 0.25rem 0.4rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    .project-title {
+        font-size: 7.5pt !important;
+    }
+
+    .project-desc {
+        font-size: 7pt !important;
+    }
+
+    .skill-tag {
+        font-size: 7pt !important;
+        padding: 1px 5px !important;
+    }
+
+    .footer {
+            display: flex !important;
+            position: static !important; /* Force le footer à se placer APRES le contenu */
+            margin-top: 1rem !important;
+            padding-top: 0.25rem !important;
+            border-top: 1px solid #e2e8f0 !important;
+        }
 }

@@ -6,7 +6,6 @@ let hoveredSkill = null;
 let hoveredExperienceIdx = null;
 
 // Éléments du DOM
-const skillsContainer = document.getElementById('skills-container');
 const timelineContainer = document.getElementById('experience-container');
 const projectsContainer = document.getElementById('projects-container');
 const profileContainer = document.getElementById('profile-text');
@@ -77,61 +76,64 @@ function renderProfile() {
   profileContainer.textContent = cvData.profil;
 }
 
-// 4. Compétences
+// 4. Compétences (Alimente les 2 conteneurs : Top & Side)
 function renderSkills() {
-  if (!skillsContainer || !cvData) return;
-  skillsContainer.innerHTML = '';
+  if (!cvData) return;
 
-  cvData.competences.forEach(cat => {
-    const groupTitle = document.createElement('div');
-    groupTitle.className = 'skill-group-title';
-    groupTitle.textContent = cat.categorie;
-    skillsContainer.appendChild(groupTitle);
+  const containers = [
+    document.getElementById('skills-container-top'),
+    document.getElementById('skills-container-side')
+  ];
 
-    const tagGroup = document.createElement('div');
-    tagGroup.className = 'skill-tag-group';
+  containers.forEach(container => {
+    if (!container) return;
+    container.innerHTML = '';
 
-    cat.liste.forEach(item => {
-      const tag = document.createElement('span');
-      tag.className = 'skill-tag';
-      tag.dataset.skill = item.nom;
-      tag.dataset.defaultFeatured = item.featured ? "true" : "false";
-      tag.textContent = item.nom;
+    cvData.competences.forEach(cat => {
+      const groupTitle = document.createElement('div');
+      groupTitle.className = 'skill-group-title';
+      groupTitle.textContent = cat.categorie;
+      container.appendChild(groupTitle);
 
-      //tag.addEventListener('mouseenter', () => handleSkillHover(item.nom));
-      //tag.addEventListener('mouseleave', () => handleSkillHover(null));
-      tag.addEventListener('click', () => toggleSkillFilter(item.nom));
+      const tagGroup = document.createElement('div');
+      tagGroup.className = 'skill-tag-group';
 
-      tagGroup.appendChild(tag);
+      cat.liste.forEach(item => {
+        const tag = document.createElement('span');
+        tag.className = 'skill-tag';
+        tag.dataset.skill = item.nom;
+        tag.dataset.defaultFeatured = item.featured ? "true" : "false";
+        tag.textContent = item.nom;
+
+        tag.addEventListener('click', () => toggleSkillFilter(item.nom));
+
+        tagGroup.appendChild(tag);
+      });
+
+      container.appendChild(tagGroup);
     });
-
-    skillsContainer.appendChild(tagGroup);
   });
 
   updateVisualHighlighting();
 }
 
-// 5. Expériences Professionnelles (Découpage simple + Indexation fiable)
+// 5. Expériences Professionnelles
 function renderExperiences() {
   if (!timelineContainer || !cvData) return;
   timelineContainer.innerHTML = '';
 
   const viewMode = document.querySelector('input[name="viewMode"]:checked')?.value || 'compact';
 
-  // 1. Découpage brut pour la vue A4 (7 premières expériences récentes)
   const experiencesToDisplay = (viewMode === 'compact')
     ? cvData.experiences.slice(0, 7)
     : cvData.experiences;
 
-  // 2. Parcours en conservant le lien avec l'index d'origine dans cvData.experiences
   experiencesToDisplay.forEach((exp) => {
-    // Retrouve le vrai index dans le tableau complet cvData.experiences
     const originalIndex = cvData.experiences.indexOf(exp);
 
     const expDiv = document.createElement('div');
     expDiv.className = 'exp-card';
     expDiv.dataset.expIdx = originalIndex;
-    // On garde l'information du featured d'origine pour le style par défaut
     expDiv.dataset.defaultFeatured = exp.featured ? "true" : "false";
     expDiv.dataset.skills = JSON.stringify(exp.skills || []);
 
@@ -150,14 +152,17 @@ function renderExperiences() {
 
     const missionsList = document.createElement('ul');
     missionsList.className = 'exp-list';
-    exp.missions.forEach(m => {
-      const li = document.createElement('li');
-      li.textContent = m;
-      missionsList.appendChild(li);
+    // Dans renderExperiences()
+    exp.missions.forEach((m, idx) => {
+        // En mode compact, conserve uniquement les 2 premières puces
+        if (viewMode === 'compact' && idx >= 2) return;
+
+        const li = document.createElement('li');
+        li.textContent = m;
+        missionsList.appendChild(li);
     });
     expDiv.appendChild(missionsList);
 
-    // Survol basé sur l'index d'origine
     expDiv.addEventListener('mouseenter', () => handleExperienceHover(originalIndex));
     expDiv.addEventListener('mouseleave', () => handleExperienceHover(null));
 
@@ -220,11 +225,11 @@ function handleExperienceHover(expIdx) {
 }
 
 function toggleSkillFilter(skillName) {
+  document.querySelector('.page').classList.toggle('compact-view', viewMode === 'compact');
   activeFilterSkill = (activeFilterSkill === skillName) ? null : skillName;
   updateVisualHighlighting();
 }
 
-// Fonction utilitaire pour comparer 2 noms de compétences sans se soucier de la casse
 function isSameSkill(skillA, skillB) {
   if (!skillA || !skillB) return false;
   return skillA.trim().toLowerCase() === skillB.trim().toLowerCase();
@@ -237,7 +242,7 @@ function updateVisualHighlighting() {
 
   const isInteracting = activeFilterSkill || hoveredSkill || hoveredExperienceIdx !== null;
 
-  // --- A. ÉTAT PAR DÉFAUT (Aucune interaction) ---
+  // --- A. ÉTAT PAR DÉFAUT ---
   if (!isInteracting) {
     allSkillTags.forEach(tag => {
       tag.classList.remove('highlighted', 'dimmed', 'active-filter');
@@ -261,9 +266,7 @@ function updateVisualHighlighting() {
     return;
   }
 
-  // --- B. ÉTAT INTERACTIF (Un filtre ou un survol est actif) ---
-
-  // 1. Survol ou Clic sur un badge de compétence (Sidebar)
+  // --- B. ÉTAT INTERACTIF ---
   if (hoveredSkill || activeFilterSkill) {
     const targetSkill = hoveredSkill || activeFilterSkill;
 
@@ -303,14 +306,12 @@ function updateVisualHighlighting() {
     });
   }
 
-  // 2. Survol d'une carte d'expérience
   if (hoveredExperienceIdx !== null && !hoveredSkill) {
     const targetExpData = cvData.experiences[hoveredExperienceIdx];
 
     if (targetExpData) {
       const expSkills = targetExpData.skills || [];
 
-      // Mise en surbrillance des badges de compétences correspondants
       allSkillTags.forEach(tag => {
         tag.classList.remove('featured');
         const isAssociated = expSkills.some(s => isSameSkill(s, tag.dataset.skill));
@@ -322,7 +323,6 @@ function updateVisualHighlighting() {
         }
       });
 
-      // Mise en surbrillance de la carte survolée uniquement
       allExpCards.forEach(card => {
         card.classList.remove('featured-exp');
         if (parseInt(card.dataset.expIdx, 10) === hoveredExperienceIdx) {
@@ -335,5 +335,4 @@ function updateVisualHighlighting() {
   }
 }
 
-// Chargement initial au démarrage
 window.onload = loadCVData;

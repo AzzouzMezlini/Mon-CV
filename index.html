@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- BARRE DE CONTRÔLE (Ecran uniquement) -->
+    <!-- BARRE DE CONTRÔLE (Écran uniquement) -->
     <div class="controls-bar">
         <div>
             <strong>Mode d'affichage :</strong>
@@ -18,7 +18,7 @@
                 <input type="radio" name="viewMode" value="full" onchange="renderExperiences()"> Vue Complète (13 postes)
             </label>
         </div>
-        <button class="btn-print" onclick="window.print()">🖨 Imprimer / Export PDF</button>
+        <button class="btn-print" onclick="window.print()">Imprimer / Export PDF</button>
     </div>
 
     <!-- PAGE A4 UNIQUE -->
@@ -33,17 +33,19 @@
             <div class="contact-grid" id="contact-list"></div>
         </header>
 
-        <!-- BANDEAU PROFIL ET COMPÉTENCES STICKY -->
-        <aside class="profile-card" id="profile-text"></aside>
+        <!-- CARTE PROFIL -->
+        <section class="profile-card" id="profile-text"></section>
 
-        <!-- Bloc Compétences Clefs (Sticky tout en haut, fond opaque) -->
-        <section id="sec-skills">
+        <!-- BANDEAU COMPÉTENCES (ÉCRAN UNIQUEMENT) -->
+        <section id="sec-skills-top" class="skills-banner">
             <div class="section-title">Compétences Clefs</div>
-            <div id="skills-container"></div>
+            <div id="skills-container-top"></div>
         </section>
 
+        <!-- LAYOUT 2 COLONNES (UNIQUE) -->
         <div class="layout">
-            <!-- COLONNE PRINCIPALE (GAUCHE) -->
+
+            <!-- Main : Expériences -->
             <main class="col-main">
                 <section class="exp-section">
                     <div class="section-title">Parcours Professionnel</div>
@@ -51,20 +53,25 @@
                 </section>
             </main>
 
-            <!-- SIDEBAR (DROITE) -->
+            <!-- Side : Sidebar -->
             <aside class="col-side">
-                <!-- 1. Formations -->
-                <section id="sec-education">
-                    <div class="section-title">Formations</div>
-                    <div id="education-container"></div>
+                <!-- Compétences (IMPRESSION UNIQUEMENT) -->
+                <section id="sec-skills-side" class="skills-sidebar">
+                    <div class="section-title">Compétences Clefs</div>
+                    <div id="skills-container-side"></div>
                 </section>
 
-                <!-- 2. Portfolio / Side Projects -->
                 <section id="sec-projects">
                     <div class="section-title">Portfolio Technique</div>
                     <div id="projects-container"></div>
                 </section>
+
+                <section id="sec-education">
+                    <div class="section-title">Formations</div>
+                    <div id="education-container"></div>
+                </section>
             </aside>
+
         </div>
 
         <!-- FOOTER -->
