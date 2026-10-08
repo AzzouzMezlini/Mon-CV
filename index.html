@@ -29,16 +29,17 @@
             <button class="btn-print" onclick="window.print()">
                 📄 Imprimer / Export PDF
             </button>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
-                <span class="theme-toggle-icon">
-                    <span class="theme-icon-light">🌙</span>
-                    <span class="theme-icon-dark">☀️</span>
+            <label class="theme-switch" for="theme-toggle" aria-label="Activer le mode sombre">
+                <span class="theme-switch-label">
+                    <span class="theme-icon-light">☀️</span>
+                    <span class="theme-icon-dark">🌙</span>
+                    <span class="theme-switch-text">Mode sombre</span>
                 </span>
-                <span class="theme-toggle-text">
-                    <span class="theme-text-light">Mode sombre</span>
-                    <span class="theme-text-dark">Mode clair</span>
-                </span>
-            </button>
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="theme-toggle" />
+                    <span class="switch-slider"></span>
+                </div>
+            </label>
         </div>
     </div>
 
