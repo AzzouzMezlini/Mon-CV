@@ -14,10 +14,25 @@ const profileContainer = document.getElementById('profile-text');
 const eduContainer = document.getElementById('education-container');
 
 // 1. Chargement initial des données
+
+function initViewModeFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const modeParam = urlParams.get('view'); // Récupère la valeur de ?view=...
+
+  if (modeParam === 'full' || modeParam === 'compact') {
+    const radio = document.querySelector(`input[name="viewMode"][value="${modeParam}"]`);
+    if (radio) {
+      radio.checked = true;
+    }
+  }
+}
+
 async function loadCVData() {
   try {
     const response = await fetch('cv-data.json');
     cvData = await response.json();
+
+    initViewModeFromURL();
 
     autoDetectSkills();
 
@@ -27,6 +42,7 @@ async function loadCVData() {
     renderExperiences();
     renderProjects();
     renderEducation();
+
   } catch (error) {
     console.error("Erreur lors du chargement des données CV :", error);
   }
@@ -70,7 +86,6 @@ function autoDetectSkills() {
     }
   });
 
-  // Appliquer la même regex sur cvData.projets si nécessaire
 }
 
 // 3. En-tête et Profil
@@ -142,6 +157,18 @@ function renderExperiences() {
 
   const viewMode = document.querySelector('input[name="viewMode"]:checked')?.value || 'compact';
 
+  // Mise à jour discrète de l'URL dans la barre d'adresse
+  const newUrl = new URL(window.location.href);
+  newUrl.searchParams.set('view', viewMode);
+  window.history.replaceState({}, '', newUrl);
+
+  // Gestion de la classe CSS compact sur .page
+  const pageElement = document.querySelector('.page');
+  if (pageElement) {
+    pageElement.classList.toggle('compact-view', viewMode === 'compact');
+  }
+
+  // Filtrage des expériences
   const experiencesToDisplay = (viewMode === 'compact')
     ? cvData.experiences.slice(0, 7)
     : cvData.experiences;
@@ -322,7 +349,7 @@ function updateVisualHighlighting() {
         card.classList.toggle('dimmed', !isTarget);
       });
 
-      allExpCards.forEach(card => card.classList.add('dimmed'));
+      //allExpCards.forEach(card => card.classList.add('dimmed'));
       allEduBlocks.forEach(block => block.classList.add('dimmed'));
       return;
     }
@@ -344,7 +371,7 @@ function updateVisualHighlighting() {
         block.classList.toggle('dimmed', !isTarget);
       });
 
-      allExpCards.forEach(card => card.classList.add('dimmed'));
+      //allExpCards.forEach(card => card.classList.add('dimmed'));
       allProjCards.forEach(card => card.classList.add('dimmed'));
       return;
     }
