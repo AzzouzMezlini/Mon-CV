@@ -71,7 +71,7 @@
         { "nom": "Architecture Orienté Objet", "featured": true },
         { "nom": "Principes SOLID / DIP", "featured": false },
         { "nom": "Architecture Hexagonale", "featured": false },
-        { "nom": "Projection de données", "featured": false  }
+        { "nom": "Projection de données", "featured": false }
       ]
     }
   ],
@@ -82,9 +82,9 @@
       "prestataire": "CORIS Innovation",
       "periode": "09/2025 – 05/2026",
       "ville": "Grenoble",
-      "featured": false,
+      "featured": true,
       "missions": [
-        "Production de formulaire Excel : Template de saisi et gestion d'incident MRA et FMEA",
+        "Production de formulaire Excel : Template de saisie et gestion d'incident MRA et FMEA.",
         "Automatisation métier & Intégrité : duplication des règles de validation, application dynamique de formats conditionnels et contrôle d'intégrité à l'entrée.",
         "IHM & Paramétrage : interfaces UserForms découplées du modèle de données, loaders personnalisés et centralisation de la configuration via ConfigManager.",
         "Conception de modules robustes : gestion centralisée des erreurs, manipulation avancée des ListObject et typage fort.",
@@ -95,7 +95,8 @@
         "VBA Orienté Objet",
         "Excel Avancé",
         "Architecture Orienté Objet",
-        "Principes SOLID / DIP"
+        "Principes SOLID / DIP",
+        "DAX"
       ]
     },
     {
@@ -103,7 +104,7 @@
       "entreprise": "NEOTEEM",
       "periode": "11/2022 – 08/2024",
       "ville": "Meylan",
-      "featured": false,
+      "featured": true,
       "missions": [
         "Rétro-ingénierie des données clients (immobilier, gestion locative, trésorerie) : extraction des schémas, modélisation des relations et analyse de données pour faciliter le contrôle qualité.",
         "Maintenance évolutive et corrective de l'ETL propriétaire développé en SQL et PL/pgSQL, géré sous Git / Bitbucket (revues de code, Pull Requests).",
@@ -113,13 +114,12 @@
       "skills": [
         "Analyse de Données",
         "Rétro-conception BDD",
-        "Data Modeling",
+        "Modélisation BDD",
         "Pandas",
         "Normalisation de Données",
         "Mapping & Transformation de Données",
         "PostgreSQL",
         "PL/SQL",
-        "SQL",
         "SQL",
         "ETL",
         "Bitbucket",
@@ -164,11 +164,9 @@
         "Création de formulaires ergonomiques et sécurisés pour simplifier la saisie et automatiser le mapping des références d'articles (destinés à l'import Sage X3)."
       ],
       "skills": [
-        "VBA",
         "VBA Orienté Objet",
         "Excel Avancé",
         "Power Query",
-        "Excel",
         "Cadrage & Budget Projet"
       ]
     },
@@ -177,7 +175,7 @@
       "entreprise": "MasterGrid",
       "periode": "07/2020 – 01/2021",
       "ville": "Grenoble",
-      "featured": false,
+      "featured": true,
       "missions": [
         "Conduite de la migration de données sous forte contrainte de temps et de budget en contexte d'urgence critique (achats, stocks, affaires, tiers).",
         "Collaboration directe avec les responsables de services pour adapter les traitements aux spécificités métiers de chaque module (fournisseurs/clients, stock, achats, affaires).",
@@ -188,14 +186,13 @@
       ],
       "skills": [
         "Power Query",
-        "Excel",
         "Migration",
         "ETL",
         "Data Cleansing",
         "Mapping & Transformation de Données",
         "Normalisation de Données",
-        "Migration",
-        "Excel Avancé"
+        "Excel Avancé",
+        "DAX"
       ]
     },
     {
@@ -203,7 +200,7 @@
       "entreprise": "Haute-Savoie HABITAT",
       "periode": "09/2018 – 09/2019",
       "ville": "Annecy",
-      "featured": false,
+      "featured": true,
       "missions": [
         "Cadrage et pilotage de la refonte du système décisionnel : audit de l'existant, analyse des besoins métiers, sélection de la stack technique, rencontres éditeurs et budgétisation du projet.",
         "Conception et modélisation en étoile d'un Data Warehouse sous Microsoft SQL Server à partir de l'extraction et dénormalisation des données sources Oracle.",
@@ -218,18 +215,13 @@
         "SSRS",
         "Normalisation de Données",
         "Schéma en Étoile",
-        "Pentaho ETL",
         "Modélisation BDD",
         "Oracle",
         "Rétro-conception BDD",
         "Data Warehouse",
         "Analyse de Données",
         "Méthode MERISE (MCD/MLD)",
-        "SQL Server",
-        "Schéma en Étoile",
-        "Cadrage & Budget Projet",
-        "Oracle",
-        "Data Warehouse"
+        "Cadrage & Budget Projet"
       ]
     },
     {
