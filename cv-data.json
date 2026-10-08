@@ -8,7 +8,7 @@
     "linkedin": "linkedin.com/in/azzouz-mezlini",
     "github": "github.com/AzzouzMezlini"
   },
-  "profil": "Data Engineer et Développeur SQL, spécialiste en SQL avancé, modélisation décisionnelle et automatisation ETL. Solide double profil alliant expertise technique (dbt, Cube.dev, PostgreSQL, SQL Server, VBA POO) et fine compréhension des enjeux métiers (Gérance, Achats, Contrôle de gestion).",
+  "profil": "Data Engineer et Développeur SQL, spécialiste en SQL avancé, modélisation décisionnelle et automatisation ETL. Solide double compétence alliant expertise technique (dbt, Cube.dev, PostgreSQL, SQL Server, VBA Orienté Objet) et fine compréhension des enjeux métiers (Gérance, Achats, Contrôle de gestion).",
   "competences": [
     {
       "categorie": "Data Engineering & BI",
@@ -43,7 +43,7 @@
         { "nom": "Python", "featured": true },
         { "nom": "SQL", "featured": true },
         { "nom": "Git", "featured": true },
-        { "nom": "VBA POO", "featured": true },
+        { "nom": "VBA Orienté Objet", "featured": true },
         { "nom": "Jira", "featured": true },
         { "nom": "Excel Avancé", "featured": false },
         { "nom": "Java / Spring", "featured": false },
@@ -66,12 +66,12 @@
     {
       "categorie": "Méthodologies & Architecture",
       "liste": [
-        { "nom": "Projection de données", "featured": false  },
-        { "nom": "PR & Code Review", "featured": false },
-        { "nom": "Architecture POO", "featured": false },
+        { "nom": "PR & Code Review", "featured": true },
+        { "nom": "Schéma en Étoile", "featured": true },
+        { "nom": "Architecture Orienté Objet", "featured": true },
         { "nom": "Principes SOLID / DIP", "featured": false },
         { "nom": "Architecture Hexagonale", "featured": false },
-        { "nom": "Schéma en Étoile", "featured": false }
+        { "nom": "Projection de données", "featured": false  }
       ]
     }
   ],
@@ -84,16 +84,17 @@
       "ville": "Grenoble",
       "featured": false,
       "missions": [
-        "Développement VBA avancé sous Excel : architecture POO, principe d'inversion de dépendances (DIP), séparation des responsabilités.",
-        "Conception de modules robustes : gestion centralisée des erreurs, manipulation avancée des ListObject et typage fort.",
+        "Production de formulaire Excel : Template de saisi et gestion d'incident MRA et FMEA",
         "Automatisation métier & Intégrité : duplication des règles de validation, application dynamique de formats conditionnels et contrôle d'intégrité à l'entrée.",
-        "Modélisation & Performance : mise en cache via Scripting.Dictionary en O(1), optimisation de la mémoire.",
-        "IHM & Paramétrage : interfaces UserForms découplées du modèle de données, loaders personnalisés et centralisation de la configuration via ConfigManager."
+        "IHM & Paramétrage : interfaces UserForms découplées du modèle de données, loaders personnalisés et centralisation de la configuration via ConfigManager.",
+        "Conception de modules robustes : gestion centralisée des erreurs, manipulation avancée des ListObject et typage fort.",
+        "Développement VBA avancé sous Excel : architecture Orienté Objet, principe d'inversion de dépendances (DIP), séparation des responsabilités.",
+        "Modélisation & Performance : mise en cache via Scripting.Dictionary en O(1), optimisation de la mémoire."
       ],
       "skills": [
-        "VBA POO",
+        "VBA Orienté Objet",
         "Excel Avancé",
-        "Architecture POO",
+        "Architecture Orienté Objet",
         "Principes SOLID / DIP"
       ]
     },
@@ -105,8 +106,8 @@
       "featured": false,
       "missions": [
         "Rétro-ingénierie des données clients (immobilier, gestion locative, trésorerie) : extraction des schémas, modélisation des relations et analyse de données pour faciliter le contrôle qualité.",
-        "Conception et mise en place de Data Lakes thématiques pour la structuration et la centralisation des données métier.",
         "Maintenance évolutive et corrective de l'ETL propriétaire développé en SQL et PL/pgSQL, géré sous Git / Bitbucket (revues de code, Pull Requests).",
+        "Conception et mise en place de Data Lakes thématiques pour la structuration et la centralisation des données métier.",
         "Exécution des migrations de données vers l'application cible, suivi des demandes via Jira et accompagnement/support post-migration."
       ],
       "skills": [
@@ -138,13 +139,17 @@
       "ville": "",
       "featured": false,
       "missions": [
-        "Modélisation de bases de données selon la méthode MERISE : dictionnaire de données, matrice et arbre fonctionnel, MCD, MLD, contraintes d'intégrité.",
-        "Administration & Exploitation SQL : DDL, DML, DCL, jointures complexes, sous-requêtes, procédures stockées, fonctions et événements.",
-        "Formations Langages : bases du langage Java SE et développement d'applications Web avec Java EE / Spring Framework (MVC, injection de dépendances, CRUD)."
+        "Formations Modélisation de bases de données selon la méthode MERISE : dictionnaire de données, matrice et arbre fonctionnel, MCD, MLD, contraintes d'intégrité.",
+        "Formations Administration & Exploitation SQL : DDL, DML, DCL, jointures complexes, sous-requêtes, procédures stockées, fonctions et événements.",
+        "Formations Développement logiciel : bases du langage Java SE et développement d'applications Web avec Java EE / Spring Framework (MVC, injection de dépendances, CRUD)."
       ],
       "skills": [
-        "Mapping & Transformation de Données",
-        "Normalisation de Données"
+        "Normalisation de Données",
+        "Méthode MERISE (MCD/MLD)",
+        "Java / Spring",
+        "SQL",
+        "Architecture Orienté Objet",
+        "Principes SOLID / DIP"
       ]
     },
     {
@@ -160,7 +165,7 @@
       ],
       "skills": [
         "VBA",
-        "VBA POO",
+        "VBA Orienté Objet",
         "Excel Avancé",
         "Power Query",
         "Excel",
@@ -175,10 +180,11 @@
       "featured": false,
       "missions": [
         "Conduite de la migration de données sous forte contrainte de temps et de budget en contexte d'urgence critique (achats, stocks, affaires, tiers).",
-        "Développement et exécution de pipelines ETL sous Power Query (CSV vers CSV) pour le transcodage des références, identifiants du personnel et coordonnées bancaires selon les nouvelles nomenclatures.",
-        "Restructuration et nettoyage des données complexes : dépivotage des données de stock (passage d'une gestion en colonnes vers un modèle en lignes) et réajustement des seuils de réapprovisionnement.",
         "Collaboration directe avec les responsables de services pour adapter les traitements aux spécificités métiers de chaque module (fournisseurs/clients, stock, achats, affaires).",
-        "Mise en place de jeux d'agrégation de données pour faciliter les contrôles qualité métiers et sécurisation du jour J via une stratégie de répétition de tests de migration (gestion des échecs et réduction des risques)."
+        "Développement et exécution de pipelines ETL sous Power Query pour le transcodage des données sources.",
+        "Restructuration et nettoyage des données complexes : dépivotage des données de stock (passage d'une gestion en colonnes vers un modèle en lignes) et réajustement des seuils de réapprovisionnement.",
+        "Mise en place de jeux d'agrégation de données pour faciliter les contrôles qualité métiers.",
+        "Sécurisation du jour J via une stratégie de répétition de tests de migration (gestion des échecs et réduction des risques)."
       ],
       "skills": [
         "Power Query",
@@ -223,7 +229,6 @@
         "Schéma en Étoile",
         "Cadrage & Budget Projet",
         "Oracle",
-        "Méthode MERISE (MCD/MLD)",
         "Data Warehouse"
       ]
     },
@@ -261,7 +266,7 @@
         "Développement backend d'un logiciel de Gestion Électronique de Documents (GED) collaborative sous PHP / CakePHP et JavaScript."
       ],
       "skills": [
-        "Architecture POO",
+        "Architecture Orienté Objet",
         "Principes SOLID / DIP",
         "Architecture Hexagonale",
         "Modélisation BDD",
@@ -404,7 +409,7 @@
       "skills": [
         "Java / Spring",
         "HTML & CSS",
-        "Architecture POO",
+        "Architecture Orienté Objet",
         "Architecture Hexagonale",
         "Principes SOLID / DIP"
       ]
