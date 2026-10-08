@@ -4,6 +4,8 @@ let cvData = null;
 let activeFilterSkill = null;
 let hoveredSkill = null;
 let hoveredExperienceIdx = null;
+let hoveredProjectIdx = null;
+let hoveredEduIdx = null;
 
 // Éléments du DOM
 const timelineContainer = document.getElementById('experience-container');
@@ -36,23 +38,39 @@ function autoDetectSkills() {
 
   cvData.experiences.forEach(exp => {
     if (!exp.skills || exp.skills.length === 0) {
-      const fullText = (exp.poste + ' ' + exp.entreprise + ' ' + exp.missions.join(' ')).toLowerCase();
+      const fullText = (exp.poste + ' ' + exp.entreprise + ' ' + exp.missions.join(' '));
+
+      console.log(`--- Analyse Auto-Detect pour : "${exp.poste} (${exp.entreprise})"`);
+
       exp.skills = allSkillsList.filter(skill => {
-        const cleanSkill = skill.toLowerCase().split('(')[0].trim();
-        return fullText.includes(cleanSkill);
+        const cleanSkill = skill.split('(')[0].trim();
+        const escapedSkill = cleanSkill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        let isMatch = false;
+        try {
+          // Lookbehind/Lookahead Unicode : vérifie que le skill n'est ni précédé ni suivi d'une lettre (y compris accentuée)
+          const regex = new RegExp(`(?<!\\p{L})${escapedSkill}(?!\\p{L})`, 'iu');
+          isMatch = regex.test(fullText);
+        } catch (e) {
+          // Fallback simple si la syntaxe Unicode n'est pas supportée
+          const regex = new RegExp(`\\b${escapedSkill}\\b`, 'i');
+          isMatch = regex.test(fullText);
+        }
+
+        if (isMatch) {
+          console.log(`  [MATCH] Compétence détectée : "${skill}" (Clean: "${cleanSkill}")`);
+        }
+
+        return isMatch;
       });
+
+      if (exp.skills.length === 0) {
+        console.warn(`  [AUCUN MATCH] Aucune compétence détectée dans le texte.`);
+      }
     }
   });
 
-  cvData.projets.forEach(proj => {
-    if (!proj.skills || proj.skills.length === 0) {
-      const fullText = (proj.titre + ' ' + proj.desc).toLowerCase();
-      proj.skills = allSkillsList.filter(skill => {
-        const cleanSkill = skill.toLowerCase().split('(')[0].trim();
-        return fullText.includes(cleanSkill);
-      });
-    }
-  });
+  // Appliquer la même regex sur cvData.projets si nécessaire
 }
 
 // 3. En-tête et Profil
@@ -177,9 +195,10 @@ function renderProjects() {
   if (!projectsContainer || !cvData) return;
   projectsContainer.innerHTML = '';
 
-  cvData.projets.forEach(proj => {
+  cvData.projets.forEach((proj, idx) => {
     const card = document.createElement('div');
     card.className = 'project-card';
+    card.dataset.projIdx = idx;
     card.dataset.skills = JSON.stringify(proj.skills || []);
 
     card.innerHTML = `
@@ -190,6 +209,10 @@ function renderProjects() {
       <div class="project-desc">${proj.desc}</div>
     `;
 
+    // Interactivité au survol du projet
+    card.addEventListener('mouseenter', () => handleProjectHover(idx));
+    card.addEventListener('mouseleave', () => handleProjectHover(null));
+
     projectsContainer.appendChild(card);
   });
 }
@@ -199,9 +222,12 @@ function renderEducation() {
   if (!eduContainer || !cvData) return;
   eduContainer.innerHTML = '';
 
-  cvData.formations.forEach(f => {
+  cvData.formations.forEach((f, idx) => {
     const div = document.createElement('div');
     div.className = 'edu-block';
+    div.dataset.eduIdx = idx;
+    div.dataset.skills = JSON.stringify(f.skills || []);
+
     div.innerHTML = `
       <div class="edu-title">${f.diplome}</div>
       <div class="edu-sub">
@@ -209,6 +235,11 @@ function renderEducation() {
         <span class="edu-year">${f.annee}</span>
       </div>
     `;
+
+    // Interactivité au survol de la formation
+    div.addEventListener('mouseenter', () => handleEducationHover(idx));
+    div.addEventListener('mouseleave', () => handleEducationHover(null));
+
     eduContainer.appendChild(div);
   });
 }
@@ -221,6 +252,16 @@ function handleSkillHover(skillName) {
 
 function handleExperienceHover(expIdx) {
   hoveredExperienceIdx = expIdx;
+  updateVisualHighlighting();
+}
+
+function handleProjectHover(projIdx) {
+  hoveredProjectIdx = projIdx;
+  updateVisualHighlighting();
+}
+
+function handleEducationHover(eduIdx) {
+  hoveredEduIdx = eduIdx;
   updateVisualHighlighting();
 }
 
@@ -237,75 +278,78 @@ function isSameSkill(skillA, skillB) {
 
 function updateVisualHighlighting() {
   const allSkillTags = document.querySelectorAll('.skill-tag');
-  const allExpCards = document.querySelectorAll('.exp-card');
-  const allProjCards = document.querySelectorAll('.project-card');
+    const allExpCards = document.querySelectorAll('.exp-card');
+    const allProjCards = document.querySelectorAll('.project-card');
+    const allEduBlocks = document.querySelectorAll('.edu-block');
 
-  const isInteracting = activeFilterSkill || hoveredSkill || hoveredExperienceIdx !== null;
+    const isInteracting = activeFilterSkill ||
+                          hoveredSkill ||
+                          hoveredExperienceIdx !== null ||
+                          hoveredProjectIdx !== null ||
+                          hoveredEduIdx !== null;
 
-  // --- A. ÉTAT PAR DÉFAUT ---
-  if (!isInteracting) {
-    allSkillTags.forEach(tag => {
-      tag.classList.remove('highlighted', 'dimmed', 'active-filter');
-      if (tag.dataset.defaultFeatured === "true") {
-        tag.classList.add('featured');
-      } else {
-        tag.classList.remove('featured');
-      }
-    });
+    // --- A. ÉTAT PAR DÉFAUT ---
+    if (!isInteracting) {
+      allSkillTags.forEach(tag => {
+        tag.classList.remove('highlighted', 'dimmed', 'active-filter');
+        if (tag.dataset.defaultFeatured === "true") tag.classList.add('featured');
+      });
 
-    allExpCards.forEach(card => {
-      card.classList.remove('highlighted', 'dimmed');
-      if (card.dataset.defaultFeatured === "true") {
-        card.classList.add('featured-exp');
-      } else {
-        card.classList.remove('featured-exp');
-      }
-    });
+      allExpCards.forEach(card => {
+        card.classList.remove('highlighted', 'dimmed');
+        if (card.dataset.defaultFeatured === "true") card.classList.add('featured-exp');
+      });
 
-    allProjCards.forEach(card => card.classList.remove('highlighted', 'dimmed'));
-    return;
-  }
+      allProjCards.forEach(card => card.classList.remove('highlighted', 'dimmed'));
+      allEduBlocks.forEach(block => block.classList.remove('highlighted', 'dimmed'));
+      return;
+    }
 
-  // --- B. ÉTAT INTERACTIF ---
-  if (hoveredSkill || activeFilterSkill) {
-    const targetSkill = hoveredSkill || activeFilterSkill;
+    // --- B. SURVOL PROJET ---
+    if (hoveredProjectIdx !== null && !hoveredSkill) {
+      const targetProj = cvData.projets[hoveredProjectIdx];
+      const projSkills = targetProj?.skills || [];
 
-    allSkillTags.forEach(tag => {
-      tag.classList.remove('featured');
-      if (isSameSkill(tag.dataset.skill, targetSkill)) {
-        tag.classList.add('highlighted');
-        if (activeFilterSkill && isSameSkill(tag.dataset.skill, activeFilterSkill)) {
-          tag.classList.add('active-filter');
-        }
-      } else {
-        tag.classList.add('dimmed');
-      }
-    });
+      allSkillTags.forEach(tag => {
+        const isAssociated = projSkills.some(s => isSameSkill(s, tag.dataset.skill));
+        tag.classList.toggle('highlighted', isAssociated);
+        tag.classList.toggle('dimmed', !isAssociated);
+      });
 
-    allExpCards.forEach(card => {
-      card.classList.remove('featured-exp');
-      const skills = JSON.parse(card.dataset.skills || '[]');
-      const hasSkill = skills.some(s => isSameSkill(s, targetSkill));
+      allProjCards.forEach(card => {
+        const isTarget = parseInt(card.dataset.projIdx, 10) === hoveredProjectIdx;
+        card.classList.toggle('highlighted', isTarget);
+        card.classList.toggle('dimmed', !isTarget);
+      });
 
-      if (hasSkill) {
-        card.classList.add('highlighted');
-      } else {
-        card.classList.add('dimmed');
-      }
-    });
+      allExpCards.forEach(card => card.classList.add('dimmed'));
+      allEduBlocks.forEach(block => block.classList.add('dimmed'));
+      return;
+    }
 
-    allProjCards.forEach(card => {
-      const skills = JSON.parse(card.dataset.skills || '[]');
-      const hasSkill = skills.some(s => isSameSkill(s, targetSkill));
+    // --- C. SURVOL FORMATION ---
+    if (hoveredEduIdx !== null && !hoveredSkill) {
+      const targetEdu = cvData.formations[hoveredEduIdx];
+      const eduSkills = targetEdu?.skills || [];
 
-      if (hasSkill) {
-        card.classList.add('highlighted');
-      } else {
-        card.classList.add('dimmed');
-      }
-    });
-  }
+      allSkillTags.forEach(tag => {
+        const isAssociated = eduSkills.some(s => isSameSkill(s, tag.dataset.skill));
+        tag.classList.toggle('highlighted', isAssociated);
+        tag.classList.toggle('dimmed', !isAssociated);
+      });
 
+      allEduBlocks.forEach(block => {
+        const isTarget = parseInt(block.dataset.eduIdx, 10) === hoveredEduIdx;
+        block.classList.toggle('highlighted', isTarget);
+        block.classList.toggle('dimmed', !isTarget);
+      });
+
+      allExpCards.forEach(card => card.classList.add('dimmed'));
+      allProjCards.forEach(card => card.classList.add('dimmed'));
+      return;
+    }
+
+  // --- C. SURVOL EXPERIENCES ---
   if (hoveredExperienceIdx !== null && !hoveredSkill) {
     const targetExpData = cvData.experiences[hoveredExperienceIdx];
 
